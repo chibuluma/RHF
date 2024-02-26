@@ -1,0 +1,26 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "dotnet",
+			"task": "watch RHF.WEB",
+			"file": "/Users/mathews/Projects/RHFProject/RHF.WEB/RHF.WEB.csproj",
+			"problemMatcher": [],
+			"label": "dotnet: watch RHF.WEB"
+		},
+		{
+			"type": "dotnet",
+			"task": "build",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "dotnet: build"
+		},
+		{
+			"type": "dotnet",
+			"task": "watch RHF.API",
+			"file": "/Users/mathews/Projects/RHFProject/RHF.API/RHF.API.csproj",
+			"problemMatcher": [],
+			"label": "dotnet: watch RHF.API"
+		}
+	]
+}

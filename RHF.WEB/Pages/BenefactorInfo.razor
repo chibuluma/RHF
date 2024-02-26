@@ -1,0 +1,145 @@
+@page "/benefactorInfo"
+@using System.Net.Http.Json
+@inject HttpClient httpClient
+@inject ISnackbar SnackbarService
+@inject NavigationManager UriHelper
+@attribute [Authorize]
+
+<style>
+    .selected {
+        background-color: #1E88E5 !important;
+    }
+    .selected > td {
+        color: white !important;
+    }
+    .selected > td .mud-input {
+        color: white !important;
+    }
+</style>
+<MudTable T="RHF.Shared.Benefactor" ServerData="@(new Func<TableState, Task<TableData<RHF.Shared.Benefactor>>>(ServerReload))"
+          Dense="true" Hover="true" @ref="table" 
+          RowClass="cursor-pointer" RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">RHF Benefactors</MudText>
+        <MudSpacer />
+        <MudTextField T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="Search" Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel SortLabel="id" T="RHF.Shared.Benefactor">Id</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="nrc" T="RHF.Shared.Benefactor">NRC</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="first_name" T="RHF.Shared.Benefactor">First name</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="middle_name" T="RHF.Shared.Benefactor">Middle name</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="lastn_name" T="RHF.Shared.Benefactor">Last name</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="gender" T="RHF.Shared.Benefactor">Gender</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="phone_number" T="RHF.Shared.Benefactor">PhoneNumber</MudTableSortLabel></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="NRC">@context.Nrc</MudTd>
+        <MudTd DataLabel="First name">@context.FirstName</MudTd>
+        <MudTd DataLabel="Middle name">@context.MiddleName</MudTd>
+        <MudTd DataLabel="Last name">@context.LastName</MudTd>
+        <MudTd DataLabel="Gender">@context.Gender</MudTd>
+        <MudTd DataLabel="PhoneNumber">@context.PhoneNumber</MudTd>
+    </RowTemplate>
+    <NoRecordsContent>
+        <MudText>No matching records found</MudText>
+    </NoRecordsContent>
+    <LoadingContent>
+        <MudText>Loading...</MudText>
+    </LoadingContent>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+@code {
+    RHF.Shared.Benefactor model = new  RHF.Shared.Benefactor();
+    private IEnumerable< RHF.Shared.Benefactor> pagedData;
+    private MudTable< RHF.Shared.Benefactor> table;
+
+    private int totalItems;
+    private string searchString = null;
+    private int selectedRowNumber = -1;
+    private List<string> clickedEvents = new();
+
+    /// <summary>
+    /// Here we simulate getting the paged, filtered and ordered data from the server
+    /// </summary>
+    private async Task<TableData<RHF.Shared.Benefactor>> ServerReload(TableState state)
+    {
+        IEnumerable<RHF.Shared.Benefactor> data = await httpClient.GetFromJsonAsync<List<RHF.Shared.Benefactor>>("api/Benefactor");
+        await Task.Delay(300);
+
+        data = data.Where(element =>
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.FirstName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Nrc.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if ($"{element.FirstName} {element.MiddleName} {element.LastName}".Contains(searchString))
+                return true;
+            return false;
+        }).ToArray();
+        totalItems = data.Count();
+        switch (state.SortLabel)
+        {
+            case "id":
+                data = data.OrderByDirection(state.SortDirection, o => o.Id);
+                break;
+            case "first_name":
+                data = data.OrderByDirection(state.SortDirection, o => o.FirstName);
+                break;
+            case "gender":
+                data = data.OrderByDirection(state.SortDirection, o => o.Gender);
+                break;
+        }
+
+        pagedData = data.Skip(state.Page * state.PageSize).Take(state.PageSize).ToArray();
+
+        return new TableData<RHF.Shared.Benefactor>() {TotalItems = totalItems, Items = pagedData};
+    }
+
+    private void OnSearch(string text)
+    {
+        searchString = text;
+        table.ReloadServerData();
+    }
+
+    private string SelectedRowClassFunc(RHF.Shared.Benefactor element, int rowNumber)
+    {
+        if (selectedRowNumber == rowNumber)
+        {
+            selectedRowNumber = -1;
+            clickedEvents.Add("Selected Row: None");
+            return string.Empty;
+        }
+        else if (table.SelectedItem != null && table.SelectedItem.Equals(element))
+        {
+            selectedRowNumber = rowNumber;
+            clickedEvents.Add($"Selected Row: {rowNumber}");
+            return "selected";
+        }
+        else
+        {
+            return string.Empty;
+        }
+    }
+    private void RowClickEvent(TableRowClickEventArgs<RHF.Shared.Benefactor> selected_benefactor)
+    {
+            SnackbarService.Add
+            (
+                @<div>
+                    <p>Selected: @selected_benefactor.Item.Nrc</p>
+                </div>, severity: Severity.Info
+            );
+        
+        Task.Delay(500);
+
+        UriHelper.NavigateTo($"benefactorDetails/{selected_benefactor.Item.Id}");
+        
+    }
+}

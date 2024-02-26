@@ -1,0 +1,48 @@
+﻿@inject AuthenticationStateProvider AuthenticationStateProvider
+@if(showNavBar) {
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">RHF</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+<MudPaper Width="250px" Class="d-inline-flex py-3" Elevation="0" style="background-color: inherit; color:white;">
+    <MudNavMenu Class="mud-width-full">
+        <MudDivider Class="my-2" />
+        <MudNavLink Href="/dashboard" Icon="@Icons.Material.Filled.Dashboard">Dashboard</MudNavLink>
+        <MudNavGroup Title="Benefactors" Icon="@Icons.Material.Filled.People" Expanded="true">
+            <MudNavLink Href="/benefactor" Icon="@Icons.Material.Filled.PersonAdd" IconColor="Color.Success">Add Benefactors</MudNavLink>
+            <MudNavLink Href="/benefactorInfo" Icon="@Icons.Material.Filled.TableRows" IconColor="Color.Info">View Benefactors</MudNavLink>
+        </MudNavGroup>
+        <MudNavGroup Title="Contributors" Icon="@Icons.Material.Filled.Folder" Expanded="true">
+            <MudNavLink Href="/contibutor" Icon="@Icons.Material.Filled.AddShoppingCart" IconColor="Color.Success">Add Contributions</MudNavLink>
+            <MudNavLink Href="/contibutorInfo" Icon="@Icons.Material.Filled.FilePresent" IconColor="Color.Info">View Contributions</MudNavLink>
+        </MudNavGroup>
+    <AuthorizeView Roles="Admin">
+        <Authorized>
+            <MudDivider Class="my-2" />
+            <MudNavGroup Title="Admin" Icon="@Icons.Material.Filled.Settings" Expanded="true">
+                <MudNavLink Href="/add-roles" Icon="@Icons.Material.Filled.Pin" IconColor="Color.Secondary">Add Roles</MudNavLink>
+                <MudNavLink Href="/assign-role" Icon="@Icons.Material.Filled.AddShoppingCart" IconColor="Color.Primary">Assign Roles</MudNavLink>
+                <MudNavLink Href="/assign-role" Icon="@Icons.Material.Filled.VerifiedUser" IconColor="Color.Surface">View Users</MudNavLink>
+            </MudNavGroup>
+        </Authorized>
+    </AuthorizeView>
+    </MudNavMenu>
+</MudPaper>
+}
+
+
+@code {
+    public bool showNavBar {get; set;} = true;
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

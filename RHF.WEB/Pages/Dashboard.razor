@@ -1,0 +1,83 @@
+@page "/dashboard"
+<MudGrid>
+    <MudItem xs="12">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
+            <MudText Typo="Typo.h5">RHF Dashboard</MudText>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="3">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
+            <MudStack>
+                <MudText Align="Align.Center" Typo="Typo.caption">Total Benefactors</MudText>
+                <MudText Align="Align.Center" Typo="Typo.h4">15</MudText>
+            </MudStack>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="3">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
+            <MudStack>
+                <MudText Align="Align.Center" Typo="Typo.caption">Total RHF Contributions</MudText>
+                <MudText Align="Align.Center" Typo="Typo.h4">K23, 500</MudText>
+            </MudStack>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="3">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
+            <MudStack>
+                <MudText Align="Align.Center" Typo="Typo.caption">My Total Contributions</MudText>
+                <MudText Align="Align.Center" Typo="Typo.h4">K2, 000</MudText>
+            </MudStack>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="3">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
+            <MudStack>
+                <MudText Align="Align.Center" Typo="Typo.caption">Next Donation</MudText>
+                <MudText Align="Align.Center" Typo="Typo.h4">April, 2024</MudText>
+            </MudStack>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="6">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
+            <MudStack>
+                <MudChart ChartType="ChartType.Pie" InputData="@data" @bind-SelectedIndex="Index" InputLabels="@labels" Width="300px" Height="300px" />
+            </MudStack>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="6">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
+            <MudStack>
+                <MudChart ChartType="ChartType.Bar" ChartSeries="@Series" @bind-SelectedIndex="Index" XAxisLabels="@XAxisLabels" Width="100%" Height="350px"></MudChart>
+            </MudStack>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+@code {
+  private int Index = -1; //default value cannot be 0 -> first selectedindex is 0.
+    int dataSize = 4;
+    double[] data = { 77, 25, 20, 5 };
+    string[] labels = { "Uranium", "Plutonium", "Thorium", "Caesium", "Technetium", "Promethium",
+                        "Polonium", "Astatine", "Radon", "Francium", "Radium", "Actinium", "Protactinium",
+                        "Neptunium", "Americium", "Curium", "Berkelium", "Californium", "Einsteinium", "Mudblaznium" };
+
+    Random random = new Random();
+
+    void RandomizeData()
+    {
+        var new_data = new double[dataSize];
+        for (int i = 0; i < new_data.Length; i++)
+            new_data[i] = random.NextDouble() * 100;
+        data = new_data;
+        StateHasChanged();
+    }
+
+
+    public List<ChartSeries> Series = new List<ChartSeries>()
+    {
+        new ChartSeries() { Name = "United States", Data = new double[] { 40, 20, 25, 27, 46, 60, 48, 80, 15 } },
+        new ChartSeries() { Name = "Germany", Data = new double[] { 19, 24, 35, 13, 28, 15, 13, 16, 31 } },
+        new ChartSeries() { Name = "Sweden", Data = new double[] { 8, 6, 11, 13, 4, 16, 10, 16, 18 } },
+    };
+    public string[] XAxisLabels = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep" };
+}

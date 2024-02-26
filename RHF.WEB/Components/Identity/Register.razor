@@ -1,0 +1,187 @@
+@page "/register"
+@using RHF.WEB.Identity
+@inject IAccountManagement Acct
+
+<style>
+/* Apply a simple reset for margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.form-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px; /* Adjust the spacing between the image and the form */
+}
+
+/* Style the outer container */
+.flex-outer {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style form elements */
+.flex-outer div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px; /* Adjust the spacing between the image and the form */
+}
+
+button.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+}
+
+</style>
+<PageTitle>Register</PageTitle>
+
+<div class="d-flex justify-center"> 
+    <MudImage Fluid="true" Src="images/logo.jpg" 
+        Width="150" Height="100" ObjectPosition="@ImagePosition" Alt="RHF logo" Class="rounded-lg ma-4"/>
+</div>
+
+<center>
+    <h3>Register to Royal Hands Foundation</h3>
+</center>
+<AuthorizeView>
+    <Authorized>
+        <div class="alert alert-success">You're already logged in as @context.User.Identity?.Name.</div>
+    </Authorized>
+    <NotAuthorized>
+        @if (success)
+        {
+            <div class="alert alert-success">You successfully registered. Now you can <a href="login">login</a>.</div>
+        }
+        else
+        {
+            if (errors)
+            {
+                foreach (var error in errorList)
+                {
+                    <div class="alert alert-danger">@error</div>
+                }
+            }
+            <div class="flex-outer">
+                <div>
+                    <label for="email">
+                        Email:
+                    </label>
+                    <input autofocus autocomplete="on" required id="email" name="emailInput" placeholder="Enter your email address" type="email" @bind-value="email" />
+                </div>
+                <div>
+                    <label for="password">
+                        Password:
+                    </label>
+                    <input required id="password" name="passwordInput" placeholder="Enter your password" type="password" @bind-value="password" /><br />
+                </div>
+                <div>
+                    <label for="confirmPassword">
+                        Retype password:
+                    </label>
+                    <input required id="confirmPassword" name="confirmPasswordInput" placeholder="Re-enter your password" type="password" @bind-value="confirmPassword" />
+                </div>
+                <div>
+                    <button class="btn btn-primary" @onclick="DoRegisterAsync">Register</button>
+                </div>
+            </div>
+        }
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private bool success, errors;
+    private string email = string.Empty;
+    private string password = string.Empty;
+    private string confirmPassword = string.Empty;
+    private string[] errorList = [];
+    ObjectPosition ImagePosition = ObjectPosition.Center;
+
+    public async Task DoRegisterAsync()
+    {
+        success = errors = false;
+        errorList = [];
+
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            errors = true;
+            errorList = ["Email is required."];
+
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(password))
+        {
+            errors = true;
+            errorList = ["Password is required."];
+
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(confirmPassword))
+        {
+            errors = true;
+            errorList = ["Please confirm your password."];
+
+            return;
+        }
+
+        if (password != confirmPassword)
+        {
+            errors = true;
+            errorList = ["Passwords don't match."];
+
+            return;
+        }
+
+        var result = await Acct.RegisterAsync(email!, password!);
+
+        if (result.Succeeded)
+        {
+            success = true;
+            email = password = confirmPassword = string.Empty;
+        }
+        else
+        {
+            errors = true;
+            errorList = result.ErrorList;
+        }
+    }
+}

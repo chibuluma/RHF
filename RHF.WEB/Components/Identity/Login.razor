@@ -1,0 +1,195 @@
+@page "/login"
+@using RHF.WEB.Identity
+@inject IAccountManagement Acct
+@inject NavigationManager UriHelper
+@inject HttpClient Http
+@inject ISnackbar SnackbarService
+@inject AuthenticationStateProvider GetAuthenticationStateAsync
+
+
+<style>
+/* Apply a simple reset for margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.form-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px; /* Adjust the spacing between the image and the form */
+}
+/* Style the outer container */
+.flex-outer {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style form elements */
+.flex-outer div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+button.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+}
+
+</style>
+
+<PageTitle>Login</PageTitle>
+
+<div class="d-flex justify-center"> 
+    <MudImage Fluid="true" Src="images/logo.jpg" 
+        Width="150" Height="100" ObjectPosition="@ImagePosition" Alt="RHF logo" Class="rounded-lg ma-4"/>
+</div>
+
+<center>
+    <h3>Login to Royal Hands Foundation</h3>
+</center>
+
+<AuthorizeView>
+    <Authorized>
+        <div class="alert alert-success">You're logged in as @context.User.Identity?.Name.</div>
+    </Authorized>
+    <NotAuthorized>
+        @if (errors)
+        {
+            @foreach (var error in errorList)
+            {
+                <div class="alert alert-danger">@error</div>
+            }
+        }
+        <div class="flex-outer">
+            <div>
+                <label for="email">
+                    Email:
+                </label>
+                <input required id="email" name="emailInput" placeholder="Enter your email address" type="email" @bind-value="email" />
+            </div>
+            <div>
+                <label for="password">
+                    Password:
+                </label>
+                <input required id="password" name="passwordInput" placeholder="Enter your password" type="password" @bind-value="password" />
+            </div>
+            <div>
+                <button class="btn btn-primary" @onclick="DoLoginAsync">Login</button>
+            </div>
+        </div>
+
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private bool success, errors;
+    private string email = string.Empty;
+    private string password = string.Empty;
+    private string[] errorList = [];
+    ObjectPosition ImagePosition = ObjectPosition.Center;
+
+    public async Task DoLoginAsync()
+    {
+        success = errors = false;
+        errorList = [];
+
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            errors = true;
+            errorList = ["Email is required."];
+
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(password))
+        {
+            errors = true;
+            errorList = ["Password is required."];
+
+            return;
+        }
+
+        var result = await Acct.LoginAsync(email!, password!);
+
+
+        if (result.Succeeded)
+        {
+            success = true;
+            var check_if_linked = await IsAccountLinked(email);
+            email = password = string.Empty;
+
+            if(check_if_linked)
+                UriHelper.NavigateTo("/");
+            else{
+                UriHelper.NavigateTo("benefactor");
+            }
+        }
+        else
+        {
+            errors = true;
+            errorList = result.ErrorList;
+        }
+
+    }
+
+
+    public async Task<bool> IsAccountLinked(string id){
+        var account = await Http.GetAsync($"api/Benefactor/GetBenefactorByUserId/{id}"); 
+
+        if(account.StatusCode != System.Net.HttpStatusCode.NoContent){
+            SnackbarService.Add
+            (
+                @<div>
+                    <ul>
+                        <li>@account</li>
+                    </ul>
+                </div>, severity: Severity.Success
+            );
+
+            return true;
+        }
+        else{
+            SnackbarService.Add
+            (
+                @<div>
+                    <ul>
+                        <li>Account not yet linked</li>
+                    </ul>
+                </div>, severity: Severity.Warning
+            );
+            return false; 
+        }
+    }
+}

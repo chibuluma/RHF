@@ -1,0 +1,84 @@
+@using System.ComponentModel.DataAnnotations
+@inject HttpClient Http
+@inject ISnackbar SnackbarService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize(Roles="CFO")]
+
+<AuthorizeView Roles="CFO">
+    <Authorized>
+        <MudDialog>
+            <DialogContent>
+                    <MudForm>
+                        <MudText>ID: @Identifier</MudText>
+                        <MudText>Benefactor: @Contributor</MudText>
+                        <MudDatePicker @bind-Date="model.DatePaid" For="@(() => model.DatePaid)" Label="Date paid"/>
+                        <MudInput @bind-Value="model.AmountPaid" Adornment="Adornment.Start" AdornmentText="K" For="@(() => model.AmountPaid)" Label="Amount paid"/>
+                    </MudForm>
+            </DialogContent>
+            <DialogActions>
+                <MudButton Color="@Color" StartIcon="@Icons.Material.Filled.Save" Variant="Variant.Outlined" OnClick="Submit">@ButtonText</MudButton>
+                <MudButton OnClick="Cancel">Cancel</MudButton>
+            </DialogActions>
+        </MudDialog>
+    </Authorized>
+
+    <NotAuthorized>
+        <p>
+            Only CFO role is allowed to add contributions
+        </p>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; } 
+    [Parameter] public string ButtonText { get; set; } = null!;
+    [Parameter] public string Identifier { get; set; } = null!;
+    [Parameter] public string Contributor { get; set; } = null!;
+
+    [Parameter] public Color Color { get; set; }
+    RHF.Shared.BenefactorContributionsDTO model = new RHF.Shared.BenefactorContributionsDTO();
+
+    string GetResponseMessage(HttpResponseMessage response)
+    {
+        Stream receiveStream = response.Content.ReadAsStream();
+        StreamReader readStream = new StreamReader(receiveStream, System.Text.Encoding.UTF8);
+        return readStream.ReadToEnd();
+    }
+
+    private System.Security.Claims.ClaimsPrincipal User;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        User = authState.User;
+    }
+    async void Submit() {  
+        int id=0;
+        Int32.TryParse(Identifier, out id);
+        
+        model.BenefactorId = id;
+
+        var response = await Http.PostAsJsonAsync<RHF.Shared.BenefactorContributionsDTO>($"api/BenefactorContributions", model);
+
+        if(response.IsSuccessStatusCode){
+            SnackbarService.Add
+            (
+                @<div>
+                    <p>Contribution for @Contributor added successfully</p>
+                </div>, severity: Severity.Success
+            );
+        }
+        else{
+            SnackbarService.Add
+            (
+                @<div>
+                    <p>@GetResponseMessage(response)</p>
+                </div>, severity: Severity.Error
+            );
+        }
+    MudDialog.Cancel();
+
+    }
+    void Cancel() => MudDialog.Cancel();
+}

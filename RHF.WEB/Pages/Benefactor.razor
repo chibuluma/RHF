@@ -1,0 +1,133 @@
+@page "/benefactor"
+@inject HttpClient Http
+@inject ISnackbar SnackbarService
+@inject AuthenticationStateProvider GetAuthenticationStateAsync
+@inject NavigationManager UriHelper
+@attribute [Authorize]
+
+@using System.Threading;
+
+@using System.ComponentModel.DataAnnotations
+
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+<DataAnnotationsValidator/>
+
+<MudGrid>
+    <MudItem xs="12" sm="6">
+        <MudCard>
+            <MudCardContent>
+                <MudSelect T="string" Label="Title" AnchorOrigin="Origin.BottomCenter" 
+                            @bind-Value=model.Title
+                            For="@(() => model.Title)">
+                    <MudSelectItem Value="@("Prof.")" />
+                    <MudSelectItem Value="@("Dr.")" />
+                    <MudSelectItem Value="@("Mr.")" />
+                    <MudSelectItem Value="@("Mrs.")" />
+                    <MudSelectItem Value="@("Ms.")" />
+                </MudSelect>
+                <MudTextField Label="NRC #" HelperText="Format. XXXXXX/XX/X"
+                              @bind-Value="model.Nrc" For="@(() => model.Nrc)"/>
+                <MudTextField Label="First name" HelperText="Max. 15 characters"
+                              @bind-Value="model.FirstName" For="@(() => model.FirstName)"/>
+                <MudTextField Label="Middle name" HelperText="Max. 15 characters"
+                              @bind-Value="model.MiddleName" For="@(() => model.MiddleName)"/>
+                <MudTextField Label="Last name" HelperText="Max. 15 characters"
+                              @bind-Value="model.LastName" For="@(() => model.LastName)"/>
+            </MudCardContent>
+
+        </MudCard>
+    </MudItem>
+     <MudItem xs="12" sm="6">
+        <MudCard>
+            <MudCardContent>
+                <MudSelect T="string" Label="Gender" AnchorOrigin="Origin.BottomCenter" 
+                            @bind-Value=model.Gender
+                            For="@(() => model.Gender)">
+                    <MudSelectItem Value="@("Male")" />
+                    <MudSelectItem Value="@("Female")" />
+                </MudSelect>
+                <MudTextField Label="Phone number" HelperText="Start with country code 260..." Class="mt-3"
+                              @bind-Value="model.PhoneNumber" For="@(() => model.PhoneNumber)" InputType="InputType.Number"/>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" StartIcon="@Icons.Material.Filled.Save" Variant="Variant.Outlined" Color="Color.Primary" Class="ml-auto">Save</MudButton>
+                </MudCardActions>
+            </MudCardContent>
+        </MudCard>
+     </MudItem>
+    <MudItem xs="12">
+        <MudText Typo="Typo.body2" Align="Align.Center">
+            Fill out the form correctly to submit.
+        </MudText>
+    </MudItem>
+</MudGrid>
+</EditForm>
+
+<MudPopover Open="@IsOpen" AnchorOrigin="@Origin.CenterCenter" Class="px-4 pt-4">
+    <MudProgressCircular Color="Color.Info" Style="height:80px;width:80px;" Value="@Value" Indeterminate=false/>
+</MudPopover>
+
+
+@code {
+    BenefactorDTO model = new BenefactorDTO();
+    bool success;
+    public bool IsOpen { get; set; }
+	public int Value { get; set; }
+    private string userId = string.Empty;
+    
+    private async void OnValidSubmit(EditContext context)
+    {
+        var user = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
+        
+        if(user==null)
+            return;
+
+        success = true;
+        model.UserId  = user.User.Identity?.Name;
+        var result = await Http.PostAsJsonAsync<BenefactorDTO>("api/Benefactor", model);  
+        
+        IsOpen = true;  
+        SimulateProgress();
+        await Task.Delay(5000);
+        IsOpen = false;
+        ShowMessage(result);
+        StateHasChanged();
+    }
+
+    public void ShowMessage(HttpResponseMessage message){
+        if(message.IsSuccessStatusCode){
+            SnackbarService.Add
+            (
+                @<div>
+                    <ul>
+                        <li>@model.Nrc added successfuly</li>
+                    </ul>
+                </div>, severity: Severity.Success
+            );
+        }else{
+            success = false;
+            SnackbarService.Add
+            (
+                @<div>
+                    <p>await ContentToString(@message.Content)</p>
+                </div>, severity: Severity.Error
+            );
+        }
+    }
+
+    public async void SimulateProgress()
+	{
+		Value = 0;
+		do
+		{
+			Value += 4;
+			StateHasChanged();
+			await Task.Delay(150);
+
+		} while (Value < 100);
+	}
+
+    public async Task<string> ContentToString(HttpContent httpContent){
+        var message = await httpContent.ReadAsStringAsync();
+        return message;
+    }
+}

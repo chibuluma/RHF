@@ -1,0 +1,69 @@
+{
+  "Files": [
+    {
+      "Id": "/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/blazor.webassembly.js",
+      "PackagePath": "staticwebassets/_framework/blazor.webassembly.js"
+    },
+    {
+      "Id": "/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/uixh1ja8ig.gz",
+      "PackagePath": "staticwebassets/_framework/blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/scopedcss/bundle/RHF.WEB.styles.css",
+      "PackagePath": "staticwebassets/RHF.WEB.styles.css"
+    },
+    {
+      "Id": "/Users/mathews/Projects/RHFProject/RHF.WEB/wwwroot/appsettings.json",
+      "PackagePath": "staticwebassets/appsettings.json"
+    },
+    {
+      "Id": "/Users/mathews/Projects/RHFProject/RHF.WEB/wwwroot/css/app.css",
+      "PackagePath": "staticwebassets/css/app.css"
+    },
+    {
+      "Id": "/Users/mathews/Projects/RHFProject/RHF.WEB/wwwroot/css/bootstrap/bootstrap.min.css",
+      "PackagePath": "staticwebassets/css/bootstrap/bootstrap.min.css"
+    },
+    {
+      "Id": "/Users/mathews/Projects/RHFProject/RHF.WEB/wwwroot/css/bootstrap/bootstrap.min.css.map",
+      "PackagePath": "staticwebassets/css/bootstrap/bootstrap.min.css.map"
+    },
+    {
+      "Id": "/Users/mathews/Projects/RHFProject/RHF.WEB/wwwroot/favicon.png",
+      "PackagePath": "staticwebassets/favicon.png"
+    },
+    {
+      "Id": "/Users/mathews/Projects/RHFProject/RHF.WEB/wwwroot/icon-192.png",
+      "PackagePath": "staticwebassets/icon-192.png"
+    },
+    {
+      "Id": "/Users/mathews/Projects/RHFProject/RHF.WEB/wwwroot/images/logo.jpg",
+      "PackagePath": "staticwebassets/images/logo.jpg"
+    },
+    {
+      "Id": "/Users/mathews/Projects/RHFProject/RHF.WEB/wwwroot/index.html",
+      "PackagePath": "staticwebassets/index.html"
+    },
+    {
+      "Id": "/Users/mathews/Projects/RHFProject/RHF.WEB/wwwroot/sample-data/weather.json",
+      "PackagePath": "staticwebassets/sample-data/weather.json"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.RHF.WEB.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.RHF.WEB.props",
+      "PackagePath": "build\\RHF.WEB.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.RHF.WEB.props",
+      "PackagePath": "buildMultiTargeting\\RHF.WEB.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.RHF.WEB.props",
+      "PackagePath": "buildTransitive\\RHF.WEB.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

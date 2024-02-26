@@ -1,0 +1,18 @@
+﻿@page "/"
+@attribute [Authorize]
+
+<PageTitle>Home</PageTitle>
+
+<div class="d-flex justify-center"> 
+    <MudImage Fluid="true" Src="images/logo.jpg" 
+        Width="200" Height="150" ObjectPosition="@ImagePosition" Alt="RHF logo" Class="rounded-lg ma-4"/>
+</div>
+
+<center>
+    <h3>Royal Hands Foundation</h3>
+</center>
+
+
+@code {
+    ObjectPosition ImagePosition = ObjectPosition.Center;
+}

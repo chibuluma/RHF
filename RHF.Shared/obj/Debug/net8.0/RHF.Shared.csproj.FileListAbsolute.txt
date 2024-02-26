@@ -1,0 +1,12 @@
+/Users/mathews/Projects/RHFProject/RHF.Shared/bin/Debug/net8.0/RHF.Shared.deps.json
+/Users/mathews/Projects/RHFProject/RHF.Shared/bin/Debug/net8.0/RHF.Shared.dll
+/Users/mathews/Projects/RHFProject/RHF.Shared/bin/Debug/net8.0/RHF.Shared.pdb
+/Users/mathews/Projects/RHFProject/RHF.Shared/obj/Debug/net8.0/RHF.Shared.csproj.AssemblyReference.cache
+/Users/mathews/Projects/RHFProject/RHF.Shared/obj/Debug/net8.0/RHF.Shared.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mathews/Projects/RHFProject/RHF.Shared/obj/Debug/net8.0/RHF.Shared.AssemblyInfoInputs.cache
+/Users/mathews/Projects/RHFProject/RHF.Shared/obj/Debug/net8.0/RHF.Shared.AssemblyInfo.cs
+/Users/mathews/Projects/RHFProject/RHF.Shared/obj/Debug/net8.0/RHF.Shared.csproj.CoreCompileInputs.cache
+/Users/mathews/Projects/RHFProject/RHF.Shared/obj/Debug/net8.0/RHF.Shared.dll
+/Users/mathews/Projects/RHFProject/RHF.Shared/obj/Debug/net8.0/refint/RHF.Shared.dll
+/Users/mathews/Projects/RHFProject/RHF.Shared/obj/Debug/net8.0/RHF.Shared.pdb
+/Users/mathews/Projects/RHFProject/RHF.Shared/obj/Debug/net8.0/ref/RHF.Shared.dll

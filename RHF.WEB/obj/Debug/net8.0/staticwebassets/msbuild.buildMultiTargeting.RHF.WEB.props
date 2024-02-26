@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/RHF.WEB.props" />
+</Project>

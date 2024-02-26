@@ -1,0 +1,17 @@
+/Users/mathews/Projects/RHFProject/RHF.DAL/bin/Debug/net8.0/RHF.DAL.deps.json
+/Users/mathews/Projects/RHFProject/RHF.DAL/bin/Debug/net8.0/RHF.DAL.runtimeconfig.json
+/Users/mathews/Projects/RHFProject/RHF.DAL/bin/Debug/net8.0/RHF.DAL.dll
+/Users/mathews/Projects/RHFProject/RHF.DAL/bin/Debug/net8.0/RHF.DAL.pdb
+/Users/mathews/Projects/RHFProject/RHF.DAL/bin/Debug/net8.0/RHF.Shared.dll
+/Users/mathews/Projects/RHFProject/RHF.DAL/bin/Debug/net8.0/RHF.Shared.pdb
+/Users/mathews/Projects/RHFProject/RHF.DAL/obj/Debug/net8.0/RHF.DAL.csproj.AssemblyReference.cache
+/Users/mathews/Projects/RHFProject/RHF.DAL/obj/Debug/net8.0/RHF.DAL.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mathews/Projects/RHFProject/RHF.DAL/obj/Debug/net8.0/RHF.DAL.AssemblyInfoInputs.cache
+/Users/mathews/Projects/RHFProject/RHF.DAL/obj/Debug/net8.0/RHF.DAL.AssemblyInfo.cs
+/Users/mathews/Projects/RHFProject/RHF.DAL/obj/Debug/net8.0/RHF.DAL.csproj.CoreCompileInputs.cache
+/Users/mathews/Projects/RHFProject/RHF.DAL/obj/Debug/net8.0/RHF.DAL.csproj.CopyComplete
+/Users/mathews/Projects/RHFProject/RHF.DAL/obj/Debug/net8.0/RHF.DAL.dll
+/Users/mathews/Projects/RHFProject/RHF.DAL/obj/Debug/net8.0/refint/RHF.DAL.dll
+/Users/mathews/Projects/RHFProject/RHF.DAL/obj/Debug/net8.0/RHF.DAL.pdb
+/Users/mathews/Projects/RHFProject/RHF.DAL/obj/Debug/net8.0/RHF.DAL.genruntimeconfig.cache
+/Users/mathews/Projects/RHFProject/RHF.DAL/obj/Debug/net8.0/ref/RHF.DAL.dll

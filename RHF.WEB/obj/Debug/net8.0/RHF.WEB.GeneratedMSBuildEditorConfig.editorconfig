@@ -1,0 +1,87 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = RHF.WEB
+build_property.RootNamespace = RHF.WEB
+build_property.ProjectDir = /Users/mathews/Projects/RHFProject/RHF.WEB/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = false
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /Users/mathews/Projects/RHFProject/RHF.WEB
+build_property._RazorSourceGeneratorDebug = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Components/Identity/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9JZGVudGl0eS9Mb2dpbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Components/Identity/Logout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9JZGVudGl0eS9Mb2dvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Components/Identity/Register.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9JZGVudGl0eS9SZWdpc3Rlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Components/Pages/PrivatePage.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Qcml2YXRlUGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Benefactor.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQmVuZWZhY3Rvci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/BenefactorDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQmVuZWZhY3RvckRldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/BenefactorInfo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQmVuZWZhY3RvckluZm8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/ContributorDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ29udHJpYnV0b3JEaWFsb2cucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Dashboard.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvYXJkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Dialog.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGlhbG9nLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9tZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/ViewContributorDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVmlld0NvbnRyaWJ1dG9yRGlhbG9nLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0L01haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-thu0sr0fvs
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0L05hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-48jdoi5kfb
