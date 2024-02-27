@@ -33,7 +33,8 @@ public class UserManagerController : ControllerBase {
         if(userManager.Users == null)
             return NotFound();
 
-        return await userManager.Users.ToListAsync();
+        return await userManager.Users
+        .ToListAsync();
     }
 
     //POST /api/roles
@@ -46,13 +47,34 @@ public class UserManagerController : ControllerBase {
 
         try
         {
-            await roleManager.CreateAsync(new IdentityRole() { Name = roleName });
-            return Ok(); 
+            var response = await roleManager.CreateAsync(new IdentityRole() { Name = roleName });
+            
+            if(response.Succeeded)
+                return Ok();
+
+            return BadRequest(response); 
         }
         catch (Exception ex)
         {   
             return BadRequest(ex);
         }
+    }
+    [HttpGet]
+    [Route("GetUsersAndRoles")]
+    public async Task<ActionResult<UserRolesResponse>> GetUserAndRoles(){
+        UserRolesResponse users_collection = new();
+        
+        var users = await userManager.Users.ToListAsync();;
+        
+        if(users != null){
+            foreach (var user in users)
+            {
+                var roles = await userManager.GetRolesAsync(user);
+                users_collection.UserRoles.Add(user.UserName, roles);
+            }
+        }
+
+        return Ok(users_collection);
     }
 
     //POST /api/roles
@@ -123,6 +145,7 @@ public class UserManagerController : ControllerBase {
     public async Task<IActionResult> GetCustomUserInfo()
     {
         var user = await userManager.GetUserAsync(User);
+
         if (user == null)
         {
             return NotFound();

@@ -1,0 +1,94 @@
+@page "/add-roles"
+@inject HttpClient Http
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize(Roles ="Admin")]
+@inject ISnackbar SnackbarService
+
+<style>
+    .selected {
+        background-color: #1E88E5 !important;
+    }
+    .selected > td {
+        color: white !important;
+    }
+    .selected > td .mud-input {
+        color: white !important;
+    }
+</style>
+
+<MudGrid>
+
+        <MudItem xs="12">
+            <MudText Align="Align.Center" Typo="Typo.h4">RHF Roles Module</MudText>
+        </MudItem>
+
+        <MudItem xs="6">
+            <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator/>
+
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="Role name" HelperText="Enter role"
+                                @bind-Value="model.Name" For="@(() => model.Name)"/>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Add Role</MudButton>
+                </MudCardActions>
+            </MudCard>
+            </EditForm>
+
+        </MudItem>
+        <MudItem xs="6">
+            <MudTable T="Roles" Items="@UserRoles" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable"
+            RowClass="cursor-pointer">
+                <HeaderContent>
+                    <MudTh>Id</MudTh>
+                    <MudTh>Name</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Id">@context.Id</MudTd>
+                    <MudTd DataLabel="Name">@context.Name</MudTd>
+                </RowTemplate>
+            </MudTable>
+        </MudItem>
+    </MudGrid>
+
+@code {
+    private System.Security.Claims.ClaimsPrincipal User;
+    private MudTable<Roles> mudTable;
+    private List<Roles> UserRoles = new();
+    Roles model = new Roles();
+    bool success;
+    protected async override Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        User = authState.User;   
+
+        UserRoles = await Http?.GetFromJsonAsync<List<Roles>>($"api/UserManager/GetRoles");
+
+    }
+
+    private async void OnValidSubmit(EditContext context)
+    {
+        if(model.Name ==null)
+            return;
+
+        var response =await Http.PostAsync($"api/UserManager/AddUserRole/{model.Name}",  null);
+
+        if(response.IsSuccessStatusCode)
+        {
+            success = true;
+            UserRoles = await Http?.GetFromJsonAsync<List<Roles>>($"api/UserManager/GetRoles");
+            StateHasChanged();
+        }
+        else {
+            SnackbarService.Add
+            (
+                @<div>
+                    <p>@response.Content.ReadAsStringAsync().GetAwaiter().GetResult()</p>
+                </div>, severity: Severity.Error,
+                config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+            );
+        }
+    }
+} 

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RHF.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aff7dd6b771fe0f45477b91171f38ba6e74a6e7f")]
 [assembly: System.Reflection.AssemblyProductAttribute("RHF.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RHF.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,5 +1,7 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/blazor.boot.json
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/blazor.webassembly.js
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/Blazored.LocalStorage.wasm
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/BouncyCastle.Cryptography.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/dotnet.js
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/dotnet.js.map
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/dotnet.native.8.0.0.0f4fozgfhu.js
@@ -9,6 +11,7 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/icudt_CJK.dat
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/icudt_EFIGS.dat
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/icudt_no_CJK.dat
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/MailKit.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/Microsoft.AspNetCore.Authorization.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/Microsoft.AspNetCore.Components.Authorization.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/Microsoft.AspNetCore.Components.Forms.wasm
@@ -44,6 +47,7 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/Microsoft.VisualBasic.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/Microsoft.Win32.Primitives.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/Microsoft.Win32.Registry.wasm
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/MimeKit.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/mscorlib.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/MudBlazor.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/netstandard.wasm
@@ -172,6 +176,7 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Security.Cryptography.Csp.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Security.Cryptography.Encoding.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Security.Cryptography.OpenSsl.wasm
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Security.Cryptography.Pkcs.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Security.Cryptography.Primitives.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Security.Cryptography.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Security.Cryptography.X509Certificates.wasm
@@ -299,6 +304,7 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/Microsoft.Extensions.Configuration.Json.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Threading.Tasks.Parallel.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Threading.Channels.wasm.gz
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/MailKit.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/Microsoft.Extensions.FileProviders.Physical.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/Microsoft.Extensions.Diagnostics.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Net.Sockets.wasm.gz
@@ -307,6 +313,7 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Reflection.Metadata.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/Microsoft.Win32.Primitives.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Xml.XDocument.wasm.gz
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/BouncyCastle.Cryptography.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Transactions.Local.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/Microsoft.Extensions.Configuration.Abstractions.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Runtime.CompilerServices.Unsafe.wasm.gz
@@ -314,6 +321,7 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.IO.IsolatedStorage.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Private.Xml.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Net.Security.wasm.gz
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/MimeKit.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.IO.Pipes.AccessControl.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Private.CoreLib.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/icudt_no_CJK.dat.gz
@@ -322,6 +330,7 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Diagnostics.Process.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Security.Claims.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.IO.Compression.FileSystem.wasm.gz
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/Blazored.LocalStorage.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/RHF.Shared.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Net.Primitives.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Net.Http.Json.wasm.gz
@@ -346,6 +355,7 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Collections.Immutable.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Web.HttpUtility.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Security.Cryptography.Csp.wasm.gz
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Security.Cryptography.Pkcs.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.ServiceModel.Web.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Buffers.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/RHF.WEB.pdb.gz
@@ -433,6 +443,9 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/RHF.WEB.staticwebassets.runtime.json
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/RHF.WEB.dll
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/RHF.WEB.pdb
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/Blazored.LocalStorage.dll
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/BouncyCastle.Cryptography.dll
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/MailKit.dll
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/Microsoft.AspNetCore.Authorization.dll
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/Microsoft.AspNetCore.Components.dll
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/Microsoft.AspNetCore.Components.Authorization.dll
@@ -463,9 +476,11 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/Microsoft.Extensions.Primitives.dll
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/Microsoft.JSInterop.dll
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/Microsoft.JSInterop.WebAssembly.dll
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/MimeKit.dll
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/MudBlazor.dll
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/Newtonsoft.Json.dll
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/System.IO.Pipelines.dll
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/System.Security.Cryptography.Pkcs.dll
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/Microsoft.CSharp.dll
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/Microsoft.VisualBasic.Core.dll
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/Microsoft.VisualBasic.dll
@@ -651,6 +666,10 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/RHF.WEB.AssemblyInfo.cs
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/RHF.WEB.csproj.CoreCompileInputs.cache
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/RHF.WEB.MvcApplicationPartsAssemblyInfo.cache
+/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/RHF.WEB.sourcelink.json
+/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/Blazored.LocalStorage.wasm
+/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/BouncyCastle.Cryptography.wasm
+/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/MailKit.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/Microsoft.AspNetCore.Authorization.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/Microsoft.AspNetCore.Components.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/Microsoft.AspNetCore.Components.Authorization.wasm
@@ -681,9 +700,11 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/Microsoft.Extensions.Primitives.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/Microsoft.JSInterop.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/Microsoft.JSInterop.WebAssembly.wasm
+/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/MimeKit.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/MudBlazor.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/Newtonsoft.Json.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/System.IO.Pipelines.wasm
+/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/System.Security.Cryptography.Pkcs.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/Microsoft.CSharp.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/Microsoft.VisualBasic.Core.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/Microsoft.VisualBasic.wasm
@@ -868,6 +889,9 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/scopedcss/bundle/RHF.WEB.styles.css
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/scopedcss/projectbundle/RHF.WEB.bundle.scp.css
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/uixh1ja8ig.gz
+/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/hudj0l1l5h.gz
+/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/fn4tr377f6.gz
+/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/e5lsmny7lt.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/v88ixvhhmi.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/wy8j09wiyq.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/6rzrlrhyr6.gz
@@ -898,9 +922,11 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/dqjmc4m3oh.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/4npvfsv969.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/als23b0ego.gz
+/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/gylomxnvc7.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/xbtrevpp94.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/13sjval6hd.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/2nw9pnypgb.gz
+/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/lvflbo5t0m.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/ut7krn8a7t.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/svnqus92bu.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/nmhfw0goxm.gz
@@ -1088,28 +1114,3 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/refint/RHF.WEB.dll
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/RHF.WEB.pdb
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/ref/RHF.WEB.dll
-/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/Blazored.LocalStorage.wasm
-/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/Blazored.LocalStorage.wasm.gz
-/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/Blazored.LocalStorage.dll
-/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/Blazored.LocalStorage.wasm
-/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/hudj0l1l5h.gz
-/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/BouncyCastle.Cryptography.wasm
-/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/MailKit.wasm
-/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/MimeKit.wasm
-/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Security.Cryptography.Pkcs.wasm
-/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/MailKit.wasm.gz
-/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/BouncyCastle.Cryptography.wasm.gz
-/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/MimeKit.wasm.gz
-/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Security.Cryptography.Pkcs.wasm.gz
-/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/BouncyCastle.Cryptography.dll
-/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/MailKit.dll
-/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/MimeKit.dll
-/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/System.Security.Cryptography.Pkcs.dll
-/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/BouncyCastle.Cryptography.wasm
-/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/MailKit.wasm
-/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/MimeKit.wasm
-/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/System.Security.Cryptography.Pkcs.wasm
-/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/fn4tr377f6.gz
-/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/e5lsmny7lt.gz
-/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/gylomxnvc7.gz
-/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/lvflbo5t0m.gz

@@ -126,7 +126,7 @@
             SnackbarService.Add
             (
                 @<div>
-                    <p>await ContentToString(@message.Content)</p>
+                    <p>@message.Content.ReadAsStringAsync().GetAwaiter().GetResult()</p>
                 </div>, severity: Severity.Error
             );
         }

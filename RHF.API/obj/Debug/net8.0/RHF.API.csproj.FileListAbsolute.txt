@@ -102,3 +102,4 @@
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Newtonsoft.Json.Bson.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/MailKit.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/MimeKit.dll
+/Users/mathews/Projects/RHFProject/RHF.API/obj/Debug/net8.0/RHF.API.sourcelink.json

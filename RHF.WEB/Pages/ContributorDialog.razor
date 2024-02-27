@@ -73,7 +73,7 @@
             SnackbarService.Add
             (
                 @<div>
-                    <p>@GetResponseMessage(response)</p>
+                    <p>@response.Content.ReadAsStringAsync().GetAwaiter().GetResult()</p>
                 </div>, severity: Severity.Error
             );
         }

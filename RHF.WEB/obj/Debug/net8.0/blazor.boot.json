@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "RHF.WEB",
   "resources": {
-    "hash": "sha256-UoYGe3ZSgkZl6o/Rv9wH3JN3QGL/7PDHqIqFFrSok3A=",
+    "hash": "sha256-rlxrfze/h4nWR7wNjTh7fw2bNvS0gYbSgQoq28RKzBM=",
     "jsModuleNative": {
       "dotnet.native.8.0.0.0f4fozgfhu.js": "sha256-LjLDIz9+J7uuiwMlQ4HbNx2BnSpphOtO2MwkoI28vdI="
     },
@@ -223,12 +223,12 @@
       "mscorlib.wasm": "sha256-cDuLeL3OCtVtiid/dyex1MVgbuzDSRwZxKzuP2Dp4mg=",
       "netstandard.wasm": "sha256-A0h86SDieTMoU/wU2JTszWCsUmMuguDcbap0b0BzsmI=",
       "System.Private.CoreLib.wasm": "sha256-/0DNIm/T0C07X7Tuz5uR8JvVCoAfEE2MnfPUSjyS9xc=",
-      "RHF.Shared.wasm": "sha256-KjGQrOc3+ek+BAryt/VM+PIcAmxRJQOqmjNAko7eW7o=",
-      "RHF.WEB.wasm": "sha256-apsJ3P4andh79QEA+ZS0GwTepWoPoRjY+afk+KAG4/I="
+      "RHF.Shared.wasm": "sha256-+91ohTmldc4tx4u8oDeIS/by579lnTzPAC+AnkmPMc0=",
+      "RHF.WEB.wasm": "sha256-VTWV/Jfr/UZJQaeCyJx//ALAbXLNZ2TqvKa2mNnvL28="
     },
     "pdb": {
-      "RHF.Shared.pdb": "sha256-mITEJDPPhIKj/jTxDw4PTDhMykp32nrCl7MUiFmSXBo=",
-      "RHF.WEB.pdb": "sha256-6XxPVB/FljtTXd8QuYh1QTCpgocd/qUKJEnYoegNbLc="
+      "RHF.Shared.pdb": "sha256-cVnml+YPngDAuWjmTuse3wkgOE95DG8GIGmOJpcDQOM=",
+      "RHF.WEB.pdb": "sha256-gdVkIHOep9YVqk/WNvX/QvbYvEWsfY9X+xeJj7ziB00="
     }
   },
   "cacheBootResources": true,

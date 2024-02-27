@@ -15,3 +15,4 @@
 /Users/mathews/Projects/RHFProject/RHF.DAL/obj/Debug/net8.0/RHF.DAL.pdb
 /Users/mathews/Projects/RHFProject/RHF.DAL/obj/Debug/net8.0/RHF.DAL.genruntimeconfig.cache
 /Users/mathews/Projects/RHFProject/RHF.DAL/obj/Debug/net8.0/ref/RHF.DAL.dll
+/Users/mathews/Projects/RHFProject/RHF.DAL/obj/Debug/net8.0/RHF.DAL.sourcelink.json

@@ -42,6 +42,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Qcml2YXRlUGFnZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/AddRoles.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRkUm9sZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/AssignRoles.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQXNzaWduUm9sZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Benefactor.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQmVuZWZhY3Rvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

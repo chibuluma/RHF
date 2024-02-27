@@ -2,6 +2,7 @@ using System.Security.Claims;
 
 namespace RHF.Shared;
 public class UserInfo{
+    public bool ShowDetails { get; set; }
     /// <summary>
     /// The email address.
     /// </summary>
