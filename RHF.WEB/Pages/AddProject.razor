@@ -1,0 +1,207 @@
+@page "/add-projects"
+@inject HttpClient Http
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize(Roles ="Project Manager")]
+@inject ISnackbar SnackbarService
+@inject IDialogService DialogService
+@using BlazorCalendar
+@using BlazorCalendar.Models
+@inject NavigationManager UriHelper
+
+
+
+<div class="d-flex flex-row mb-2">
+	<button type="button" class="btn" @onclick="@(m => ClicMonthNavigate(-1))">◀️</button>  
+	<button type="button" @onclick="@(m => ClicMonthNavigate(1))" class="me-2">▶️</button>
+	<input type="date" class="me-2" value="@(today.ToString("yyyy-MM-dd"))" @onchange="@(e => ChangeFirstDate(e.Value.ToString()))" />
+	<input type="number" class="me-2" min="1" @bind-value="months">
+	<select @bind="@PriorityDisplay" class="me-2">
+		<option value="@PriorityLabel.Code" selected>Label: Code</option>
+		<option value="@PriorityLabel.Caption">Label: Caption</option>
+	</select>
+	<div>
+		<input type="checkbox" @bind="draggable" id="is-draggable" />
+		<label for="is-draggable">Draggable</label>
+	</div>		 
+</div>
+
+<div class="d-flex flex-row mb-2">
+
+	<select @bind="@SelectedView" class="me-2">
+		<option value="@DisplayedView.Annual" selected>Annual view</option>
+		<option value="@DisplayedView.Monthly">Monthly view</option>
+	</select>
+	 
+</div>
+
+<CalendarContainer  DisplayedView="SelectedView" 
+					FirstDate="today" 
+	                TasksList="TasksList.ToArray()" >
+	<AnnualView HeaderClick="HeaderClick" 
+                HeaderStyle="@HeaderStyle" 
+                PriorityDisplay="@PriorityDisplay"
+				TaskClick="TaskClick" 
+                EmptyDayClick="EmptyDayClick"
+				Draggable="@draggable" 
+                DragStart="DragStart" 
+                DropTask="DropTask"/>
+	<MonthlyView PriorityDisplay="@PriorityDisplay"
+				 OutsideCurrentMonthClick="OutsideCurrentMonthClick"
+				 TaskClick="TaskClick" 
+				 DayClick="DayClick" 
+				 Draggable="@draggable"
+				 DragStart="DragStart" 
+				 DropTask="DropTask"
+				 HighlightToday="true" />
+</CalendarContainer>
+<br />
+<div class="console">@fakeConsole</div
+
+@code{
+	private BlazorCalendar.DisplayedView SelectedView = DisplayedView.Annual;
+	private string HeaderStyle = "cursor:pointer";
+
+	private void HeaderClick(DateTime monthclicked)
+	{
+		SelectedView = DisplayedView.Monthly;
+	}
+
+    private DateTime today = DateTime.Today;  
+	private int months = 8;
+	private List<Tasks> TasksList = new ();
+	private List<ProjectTasks> PlannedProjects = new ();
+
+	private string fakeConsole = "";
+	private BlazorCalendar.PriorityLabel PriorityDisplay = PriorityLabel.Code;
+	private bool draggable = true;
+
+	protected async override Task OnInitializedAsync()
+	{
+		PlannedProjects = await Http?.GetFromJsonAsync<List<ProjectTasks>>($"/api/ProjectsManager/GetProjects");
+
+		if(PlannedProjects != null){
+			TasksList = TaskProjection(PlannedProjects);
+		}
+	}
+
+	public List<Tasks> TaskProjection(List<ProjectTasks> tasks){
+		List<Tasks> projected_tasks = new();
+
+		foreach(var task in tasks){
+			projected_tasks.Add(new Tasks(){
+				ID= task.ID,
+				Key = task.Key,
+				Caption = task.Caption,
+				Code = task.Code,
+				Color = task.Color,
+				Comment = task.Comment,
+				DateEnd = task.DateEnd,
+				DateStart = task.DateStart,
+				//FillStyle = (BlazorCalendar.FillStyleEnum)task.FillStyle,
+				ForeColor = task.ForeColor,
+				NotBeDraggable = task.NotBeDraggable,
+				Type = task.Type
+			});
+		}
+		return projected_tasks;
+	}
+	public RHF.Shared.ProjectTasks TaskProjection(Tasks task){
+		ProjectTasks projected_tasks = new();
+
+		projected_tasks.ID= task.ID;
+		projected_tasks.Key = task.Key;
+		projected_tasks.Caption = task.Caption;
+		projected_tasks.Code = task.Code;
+		projected_tasks.Color = task.Color;
+		projected_tasks.Comment = task.Comment;
+		projected_tasks.DateEnd = task.DateEnd;
+		projected_tasks.DateStart = task.DateStart;
+		projected_tasks.FillStyle = (RHF.Shared.FillStyleEnum)task.FillStyle;
+		projected_tasks.ForeColor = task.ForeColor;
+		projected_tasks.NotBeDraggable = task.NotBeDraggable;
+		projected_tasks.Type = task.Type;
+		return projected_tasks;
+	}
+
+	private void ChangeFirstDate(string value)
+	{
+		if (string.IsNullOrEmpty(value)) return;
+		today = DateTime.Parse(value.ToString());
+	}	 
+	private void OutsideCurrentMonthClick(int MonthAdded)
+	{
+		today = today.AddMonths(MonthAdded);
+	}
+	private void ClicMonthNavigate(int monthToAdd)
+    {
+        today = today.AddMonths(monthToAdd);
+    }
+
+	private async void TaskClick(ClickTaskParameter clickTaskParameter)
+	{
+		fakeConsole = "ID task(s) :" + string.Join(", ", clickTaskParameter.IDList);
+
+		int res=0;
+		var id =Int32.TryParse(string.Join(", ", clickTaskParameter.IDList),out res);
+		
+		if(res >0){
+			var task = TasksList.FirstOrDefault(i=>i.ID==res);
+			if (task != null)
+				await InvokeViewDialogAsync(TaskProjection(task));
+		}
+	}	
+
+	private async void EmptyDayClick(ClickEmptyDayParameter clickEmptyDayParameter)
+	{
+		fakeConsole = "Empty day :" + clickEmptyDayParameter.Day.ToShortDateString();
+		await InvokeDialogAsync(clickEmptyDayParameter.Day.ToShortDateString());
+	}
+
+	public async Task InvokeDialogAsync(string event_date){
+		var parameters = new DialogParameters<EventDialog>();
+        parameters.Add(x => x.ContentText, $"Do you want to add an event on this date {event_date}");
+        parameters.Add(x => x.StartDate, $"{event_date}" );
+		parameters.Add(x => x.ButtonText, "Save");
+        parameters.Add(x => x.Color, Color.Info);
+
+		var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+        var dialog = DialogService.Show<EventDialog>("Event", parameters, options);
+        var result = await dialog.Result;
+		
+		UriHelper.Refresh();
+		
+	}
+
+	public async Task InvokeViewDialogAsync(RHF.Shared.ProjectTasks task){
+
+		var parameters = new DialogParameters<EventViewDialog>(){{"tasks", task}};
+		parameters.Add(x => x.ButtonText, "Update");
+
+		var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.Large };
+        var dialog = DialogService.Show<EventViewDialog>("Event", parameters, options);
+        var result = await dialog.Result;
+		UriHelper.Refresh();
+
+
+	}
+
+	private void DragStart(DragDropParameter dragDropParameter)
+	{	 
+		fakeConsole = $"DragStart event :{dragDropParameter.Day.ToShortDateString()} {dragDropParameter.taskID}";
+	}  
+	private async void DayClick(ClickEmptyDayParameter clickEmptyDayParameter)
+	{
+		fakeConsole = "Empty day :" + clickEmptyDayParameter.Day.ToShortDateString();
+		await InvokeDialogAsync(clickEmptyDayParameter.Day.ToShortDateString());
+	}
+	private void DropTask(DragDropParameter dragDropParameter)
+	{													 
+		fakeConsole = $"DropTask event :{dragDropParameter.Day.ToShortDateString()} {dragDropParameter.taskID}";
+
+		Tasks taskDropped = TasksList.FirstOrDefault(t => t.ID == dragDropParameter.taskID);
+
+		var TotalDay = (taskDropped.DateEnd - taskDropped.DateStart).TotalDays;
+		taskDropped.DateEnd = dragDropParameter.Day.AddDays(TotalDay);
+		taskDropped.DateStart = dragDropParameter.Day;
+	}
+}

@@ -1,0 +1,129 @@
+@page "/users"
+@inject HttpClient Http
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize(Roles ="Admin")]
+@inject ISnackbar SnackbarService
+@inject IDialogService DialogService
+
+<MudGrid>
+    <MudItem xs="12">
+        <MudText Align="Align.Center" Typo="Typo.h4">RHF User MGT Module</MudText>
+    </MudItem>
+
+    <MudItem xs="12">
+            <table class="table">
+            <th>Email</th>
+            <th>IsAccountMapped</th>
+            <th>IsUserConfirmed</th>
+            <th>UpdatePassword</th>
+
+            @foreach(var user in RegisteredUsers){
+                <tbody>
+                    <tr>
+                        <td>@user.Email</td> 
+                        <td>@{
+                                if(@user.IsUserAccountMapped){
+                                    <MudIcon Icon="@Icons.Material.Filled.Verified" Color="Color.Success" aria-label="Update"></MudIcon>
+                                }else{
+                                    <MudIcon Icon="@Icons.Material.Filled.PendingActions" Color="Color.Warning" aria-label="Update"></MudIcon>
+                                }
+                            }</td>      
+                        <td>@{
+                                if(@user.IsEmailConfirmed){
+                                    <MudIconButton Icon="@Icons.Material.Filled.Verified" Color="Color.Success" OnClick="(args) => UnConfirmUserAccount(user)" aria-label="Update"></MudIconButton>
+                                }else{
+                                    <MudIconButton Icon="@Icons.Material.Filled.Pending" Color="Color.Warning" OnClick="(args) => ConfirmUserAccount(user)" aria-label="Update"></MudIconButton>
+                                }
+                            }</td> 
+                        <td><MudIconButton Icon="@Icons.Material.Filled.Key" Color="Color.Primary" OnClick="PasswordUpdate" aria-label="Update"></MudIconButton></td>         
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </MudItem>
+</MudGrid>
+
+@code {
+    private List<UserInfo> RegisteredUsers = new();
+    private System.Security.Claims.ClaimsPrincipal User;
+    protected async override Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        User = authState.User;
+        RegisteredUsers = await Http?.GetFromJsonAsync<List<UserInfo>>($"/api/UserManager/Users/Info");
+    }
+
+
+    public async void ConfirmUserAccount(UserInfo user){
+        var parameters = new DialogParameters<Dialog>();
+        parameters.Add(x => x.ContentText, $"Do you want to confirm the {user.Email}?");
+        parameters.Add(x => x.ButtonText, "Confirm");
+        parameters.Add(x => x.Color, Color.Primary);
+
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        var dialog = DialogService.Show<Dialog>("Confirm", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled && user != null)
+        {            
+            var response = await Http.PostAsync($"/api/UserManager/User/ConfirmUserAccount/{user.Email}", null);
+
+            if(response.IsSuccessStatusCode){
+                Message("User confirmed successfully", severity:Severity.Success);
+                RegisteredUsers = await Http?.GetFromJsonAsync<List<UserInfo>>($"/api/UserManager/Users/Info");
+                StateHasChanged();
+            }else{
+                var msg = await response.Content.ReadAsStringAsync();
+                Message(msg, severity:Severity.Error);
+            }
+        }
+    }
+
+     public async void UnConfirmUserAccount(UserInfo user){
+        var parameters = new DialogParameters<Dialog>();
+        parameters.Add(x => x.ContentText, $"Do you want to unconfirm the {user.Email}?");
+        parameters.Add(x => x.ButtonText, "UnConfirm");
+        parameters.Add(x => x.Color, Color.Error);
+
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        var dialog = DialogService.Show<Dialog>("UnConfirm", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled && user != null)
+        {            
+            var response = await Http.PostAsync($"/api/UserManager/User/UnConfirmUserAccount/{user.Email}", null);
+
+            if(response.IsSuccessStatusCode){
+                Message("User unconfirmed successfully", severity:Severity.Success);
+                RegisteredUsers = await Http?.GetFromJsonAsync<List<UserInfo>>($"/api/UserManager/Users/Info");
+                StateHasChanged();
+            }else{
+                var msg = await response.Content.ReadAsStringAsync();
+                Message(msg, severity:Severity.Error);
+            }
+        }
+    }
+
+    public async void PasswordUpdate(){ // method not completed
+        var parameters = new DialogParameters<PasswordDialog>();
+
+        parameters.Add(x => x.Color, Color.Success);
+        parameters.Add(x => x.User, "Color.Success");
+        parameters.Add(x => x.Token, "Token");
+
+        var options = new DialogOptions() { CloseButton = false, MaxWidth = MaxWidth.Large };
+        var dialog = DialogService.Show<PasswordDialog>("Password Update", parameters, options);
+        var result = await dialog.Result;
+
+    }
+    public void Message(String message, Severity severity){
+            SnackbarService.Add(
+                @<div>
+                    <p>@message</p>
+                </div>, severity: severity,
+                config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+            );
+    }
+}

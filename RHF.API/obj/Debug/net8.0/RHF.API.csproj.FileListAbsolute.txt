@@ -12,9 +12,12 @@
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/K4os.Compression.LZ4.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/K4os.Compression.LZ4.Streams.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/K4os.Hash.xxHash.dll
+/Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/MailKit.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.AspNetCore.Cryptography.Internal.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.AspNetCore.JsonPatch.dll
+/Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.AspNetCore.OpenApi.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.Data.Sqlite.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
@@ -27,9 +30,11 @@
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.OpenApi.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.Win32.SystemEvents.dll
+/Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/MimeKit.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/MySql.Data.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/MySql.EntityFrameworkCore.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Newtonsoft.Json.dll
+/Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Newtonsoft.Json.Bson.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/SQLitePCLRaw.batteries_v2.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/SQLitePCLRaw.core.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/SQLitePCLRaw.provider.e_sqlite3.dll
@@ -83,6 +88,7 @@
 /Users/mathews/Projects/RHFProject/RHF.API/obj/Debug/net8.0/RHF.API.csproj.CoreCompileInputs.cache
 /Users/mathews/Projects/RHFProject/RHF.API/obj/Debug/net8.0/RHF.API.MvcApplicationPartsAssemblyInfo.cs
 /Users/mathews/Projects/RHFProject/RHF.API/obj/Debug/net8.0/RHF.API.MvcApplicationPartsAssemblyInfo.cache
+/Users/mathews/Projects/RHFProject/RHF.API/obj/Debug/net8.0/RHF.API.sourcelink.json
 /Users/mathews/Projects/RHFProject/RHF.API/obj/Debug/net8.0/staticwebassets.build.json
 /Users/mathews/Projects/RHFProject/RHF.API/obj/Debug/net8.0/staticwebassets.development.json
 /Users/mathews/Projects/RHFProject/RHF.API/obj/Debug/net8.0/staticwebassets/msbuild.RHF.API.Microsoft.AspNetCore.StaticWebAssets.props
@@ -97,9 +103,3 @@
 /Users/mathews/Projects/RHFProject/RHF.API/obj/Debug/net8.0/RHF.API.pdb
 /Users/mathews/Projects/RHFProject/RHF.API/obj/Debug/net8.0/RHF.API.genruntimeconfig.cache
 /Users/mathews/Projects/RHFProject/RHF.API/obj/Debug/net8.0/ref/RHF.API.dll
-/Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.AspNetCore.JsonPatch.dll
-/Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
-/Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Newtonsoft.Json.Bson.dll
-/Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/MailKit.dll
-/Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/MimeKit.dll
-/Users/mathews/Projects/RHFProject/RHF.API/obj/Debug/net8.0/RHF.API.sourcelink.json

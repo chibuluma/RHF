@@ -1,0 +1,125 @@
+@inject HttpClient Http
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ISnackbar SnackbarService
+
+
+<MudDialog>
+    <DialogContent>
+            <MudSelect  HelperText="Select province" T="string" Label="Province"
+                        Variant="Variant.Text" @bind-Value="tasks.Code">
+                        @foreach (var state in states)
+                        {
+                            <MudSelectItem T="string" Value="@state">@state</MudSelectItem>
+                        }
+                    </MudSelect>
+                    <MudTextField For="@(() => tasks.Caption)" Label="Name of beneficiary" @bind-Value="tasks.Caption" />
+                    <MudTextField  Lines="3" For="@(() => tasks.Comment)" Label="Comment about the donation" @bind-Value="tasks.Comment"/>
+                    <MudSelect  For="@(() => tasks.FillStyle)" HelperText="Pick event formatting"
+                        T="RHF.Shared.FillStyleEnum" Label="Format" Variant="Variant.Text" @bind-Value="tasks.FillStyle">
+                        <MudSelectItem Value="RHF.Shared.FillStyleEnum.CrossDots" />
+                        <MudSelectItem Value="RHF.Shared.FillStyleEnum.ZigZag" />
+                        <MudSelectItem Value="RHF.Shared.FillStyleEnum.Triangles" />
+                        <MudSelectItem Value="RHF.Shared.FillStyleEnum.Fill" />
+                    </MudSelect>
+                    <MudSelect @bind-Value="tasks.Color" For="@(() => tasks.Color)" HelperText="Pick event color" T="string" Label="Color"
+                        Variant="Variant.Text">
+                        <MudSelectItem Value="@Colors.Green.Accent2">Green</MudSelectItem>
+                        <MudSelectItem Value="@Colors.Orange.Accent2">Orange</MudSelectItem>
+                        <MudSelectItem Value="@Colors.Yellow.Accent2">Yellow</MudSelectItem>
+                        <MudSelectItem Value="@Colors.Blue.Accent2">Blue</MudSelectItem>
+                        <MudSelectItem Value="@Colors.Red.Accent2">Red</MudSelectItem>
+                        <MudSelectItem Value="@Colors.Blue.Darken4">Dark Blue</MudSelectItem>
+                    </MudSelect>
+                    <MudSwitch @bind-Value="tasks.NotBeDraggable" Label="Can event date be later changed" For="@(() => tasks.NotBeDraggable)" />
+                    <MudButton Color="Color.Info" Variant="Variant.Filled" OnClick="OnValidSubmit">@ButtonText</MudButton>
+                    <MudButton Color="Color.Info" Variant="Variant.Filled" OnClick="RemoveEvent">Remove</MudButton>
+
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [Parameter] public RHF.Shared.ProjectTasks tasks  { get; set; } = new();
+    [Parameter] public string ButtonText { get; set; }
+    private System.Security.Claims.ClaimsPrincipal User;
+    protected async override Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        User = authState.User;   
+    }
+    public async void RemoveEvent(){
+        var response = await Http.DeleteAsync($"api/ProjectsManager/{tasks.ID}");
+
+        if(response.IsSuccessStatusCode){
+            
+            SnackbarService.Add(
+            @<div>
+                <p>Project @tasks.Caption removed successfully</p>
+            </div>, severity: Severity.Warning,
+                        config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+                        );
+            MudDialog.Close(DialogResult.Ok(true));
+        }else{
+            var msg = await response.Content.ReadAsStringAsync();
+            SnackbarService.Add(
+            @<div>
+                <p>@msg</p>
+            </div>, severity: Severity.Error,
+        config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+        );
+        }
+    }
+    private async void OnValidSubmit()
+    {
+        var projectTask = new ProjectTasks()
+                            {
+                                ID = tasks.ID,
+                                Caption = tasks.Caption,
+                                Code = tasks.Code,
+                                Color = tasks.Color,
+                                Comment = tasks.Comment,
+                                CreatedBy = User?.Identity.Name,
+                                DateEnd = tasks.DateEnd,
+                                DateStart = tasks.DateStart,
+                                FillStyle = tasks.FillStyle,
+                                NotBeDraggable = tasks.NotBeDraggable
+                            };
+
+        var req = new HttpRequestMessage();
+        req.Content = JsonContent.Create(projectTask);
+        req.Method = HttpMethod.Put;
+        req.RequestUri = new Uri($"api/ProjectsManager/Project/UpdateProject/{tasks.ID}", UriKind.Relative);
+
+        var response = await Http.SendAsync(req);
+
+        if (response.IsSuccessStatusCode)
+        {
+            SnackbarService.Add(
+            @<div>
+                <p>Project @tasks.Caption updated successfully</p>
+            </div>, severity: Severity.Success,
+                        config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+                        );
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+        else
+        {
+            var msg = await response.Content.ReadAsStringAsync();
+            SnackbarService.Add(
+            @<div>
+                <p>@msg</p>
+            </div>, severity: Severity.Error,
+        config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+        );
+        }
+    }
+
+    void Cancel() => MudDialog.Cancel();
+
+    private string[] states =
+    {
+        "Copperbelt", "Lusaka", "Western", "Eastern",
+    };
+}

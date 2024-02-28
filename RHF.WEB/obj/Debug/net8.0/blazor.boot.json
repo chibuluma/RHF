@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "RHF.WEB",
   "resources": {
-    "hash": "sha256-rlxrfze/h4nWR7wNjTh7fw2bNvS0gYbSgQoq28RKzBM=",
+    "hash": "sha256-DxVcYgrkoPvcXZAslEKo67xMWr2NTvvz5Cs4rEb7/tQ=",
     "jsModuleNative": {
       "dotnet.native.8.0.0.0f4fozgfhu.js": "sha256-LjLDIz9+J7uuiwMlQ4HbNx2BnSpphOtO2MwkoI28vdI="
     },
@@ -17,6 +17,7 @@
       "icudt_no_CJK.dat": "sha256-L7sV7NEYP37/Qr2FPCePo5cJqRgTXRwGHuwF5Q+0Nfs="
     },
     "assembly": {
+      "BlazorCalendar.wasm": "sha256-PfhWZeeCMe2wZaoKi17l3LxAyhYftUMAbVJ45ueQLgk=",
       "Blazored.LocalStorage.wasm": "sha256-OaMAAd5n7ORfyur5e3QIyEVKJ76MKIvwbg7/icnnYcU=",
       "BouncyCastle.Cryptography.wasm": "sha256-tZxUz5R8To9wugB18BSeGE89A5lQ0IsnaCl5AkgKfnY=",
       "MailKit.wasm": "sha256-/9u++sBPINSOh4er1EelW0i4u500HaCK7UShUTZzM7c=",
@@ -223,12 +224,12 @@
       "mscorlib.wasm": "sha256-cDuLeL3OCtVtiid/dyex1MVgbuzDSRwZxKzuP2Dp4mg=",
       "netstandard.wasm": "sha256-A0h86SDieTMoU/wU2JTszWCsUmMuguDcbap0b0BzsmI=",
       "System.Private.CoreLib.wasm": "sha256-/0DNIm/T0C07X7Tuz5uR8JvVCoAfEE2MnfPUSjyS9xc=",
-      "RHF.Shared.wasm": "sha256-+91ohTmldc4tx4u8oDeIS/by579lnTzPAC+AnkmPMc0=",
-      "RHF.WEB.wasm": "sha256-VTWV/Jfr/UZJQaeCyJx//ALAbXLNZ2TqvKa2mNnvL28="
+      "RHF.Shared.wasm": "sha256-nyPLs3pWc1mwvZmVhwgNv8rFGkDcQ92h6L+XaAq/MLI=",
+      "RHF.WEB.wasm": "sha256-ylggQIv+8zdf0vKG2I0vAP+WExxuTJnb4nJmiFnnqIk="
     },
     "pdb": {
-      "RHF.Shared.pdb": "sha256-cVnml+YPngDAuWjmTuse3wkgOE95DG8GIGmOJpcDQOM=",
-      "RHF.WEB.pdb": "sha256-gdVkIHOep9YVqk/WNvX/QvbYvEWsfY9X+xeJj7ziB00="
+      "RHF.Shared.pdb": "sha256-FNuQ2GYsD5MRjQw5jY98+5gUZVexDmXz9zWeWYfrSy4=",
+      "RHF.WEB.pdb": "sha256-ZIQESNT/PEwjg2i1rEeAACDGj2TFNU1yMZXFpe/dumY="
     }
   },
   "cacheBootResources": true,

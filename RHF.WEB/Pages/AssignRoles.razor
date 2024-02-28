@@ -3,6 +3,8 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize(Roles ="Admin")]
 @inject ISnackbar SnackbarService
+@inject IDialogService DialogService
+
 @using RHF.Shared;
 <MudGrid>
     <MudItem xs="12">
@@ -38,16 +40,14 @@
                 <tbody>
                     <tr>
                         <td><li>@user.Key</li></td>
-                    
                         @foreach(var role in user.Value){
                              <tr>
                                 <td>
-                                    <input type="checkbox" id="@role" />
+                                    <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="((args) => RemoveRoleAssignment(user.Key,role))" aria-label="delete" id="@user"></MudIconButton>
                                     <label for="@role">@role</label> 
                                 </td>
                             </tr> 
-                        }
-                    
+                        }          
                     </tr>
                 </tbody>
             }
@@ -71,7 +71,38 @@
         Roles = await Http?.GetFromJsonAsync<List<Roles>>($"api/UserManager/GetRoles");  
         await InitialiseUserRoleMappings();
     }
+    public async Task RemoveRoleAssignment(string user, string selected_role){
 
+        var parameters = new DialogParameters<Dialog>();
+        parameters.Add(x => x.ContentText, $"Do you really want to remove the {selected_role} role from {user}? This process cannot be undone.");
+        parameters.Add(x => x.ButtonText, "Delete");
+        parameters.Add(x => x.Color, Color.Error);
+
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        var dialog = DialogService.Show<Dialog>("Delete", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            var user_role_map = new UserRoleRequest(){ UserName = user, RoleName= selected_role };
+            
+            var req = new HttpRequestMessage();
+            req.Content= JsonContent.Create(user_role_map);
+            req.Method = HttpMethod.Delete;
+            req.RequestUri = new Uri($"api/UserManager/RemoveUserRole", UriKind.Relative);
+
+            var response = await Http.SendAsync(req);
+
+            if(response.IsSuccessStatusCode){
+                await InitialiseUserRoleMappings(); // make a fresh api call
+                StateHasChanged();
+            }else{
+                var msg = await response.Content.ReadAsStringAsync();
+                Message(msg, severity:Severity.Error);
+            }
+        }
+    }
     public async Task InitialiseUserRoleMappings(){
         UserRolesResponse userRolesResponse = await Http?.GetFromJsonAsync<UserRolesResponse>("api/UserManager/GetUsersAndRoles");
 

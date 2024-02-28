@@ -2,6 +2,24 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "BlazorCalendar/2.6.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/BlazorCalendar.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/BlazorCalendar.dll": {}
+        },
+        "build": {
+          "buildTransitive/BlazorCalendar.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/BlazorCalendar.props": {}
+        }
+      },
       "Blazored.LocalStorage/4.5.0": {
         "type": "package",
         "dependencies": {
@@ -862,6 +880,24 @@
       }
     },
     "net8.0/browser-wasm": {
+      "BlazorCalendar/2.6.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/BlazorCalendar.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/BlazorCalendar.dll": {}
+        },
+        "build": {
+          "buildTransitive/BlazorCalendar.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/BlazorCalendar.props": {}
+        }
+      },
       "Blazored.LocalStorage/4.5.0": {
         "type": "package",
         "dependencies": {
@@ -1705,6 +1741,27 @@
     }
   },
   "libraries": {
+    "BlazorCalendar/2.6.7": {
+      "sha512": "fhjIfI1ioeqM0+Xz/x5aOLB+8aCrPD9QGIyuyj2GMg+J/NUghbonV3e5rMvTNzLk6TGVd1hcmo4DXrAnCyMjeg==",
+      "type": "package",
+      "path": "blazorcalendar/2.6.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "blazorcalendar.2.6.7.nupkg.sha512",
+        "blazorcalendar.nuspec",
+        "build/BlazorCalendar.props",
+        "build/Microsoft.AspNetCore.StaticWebAssets.props",
+        "buildMultiTargeting/BlazorCalendar.props",
+        "buildTransitive/BlazorCalendar.props",
+        "icon.png",
+        "lib/net6.0/BlazorCalendar.dll",
+        "lib/net7.0/BlazorCalendar.dll",
+        "lib/net8.0/BlazorCalendar.dll",
+        "staticwebassets/BlazorCalendar.bundle.scp.css",
+        "staticwebassets/BlazorCalendar.css"
+      ]
+    },
     "Blazored.LocalStorage/4.5.0": {
       "sha512": "6nZuJwA7zNIKx83IsObiHXZb09ponJOpCClU3en+hI8ZFvrOKXeOw+H7TegQZQrvdR1n9fkrVkEBQZg8vx6ZTw==",
       "type": "package",
@@ -3290,6 +3347,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "BlazorCalendar >= 2.6.7",
       "Blazored.LocalStorage >= 4.5.0",
       "Microsoft.AspNetCore.Authorization >= 8.0.1",
       "Microsoft.AspNetCore.Components.Authorization >= 8.0.1",
@@ -3345,6 +3403,10 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "BlazorCalendar": {
+            "target": "Package",
+            "version": "[2.6.7, )"
+          },
           "Blazored.LocalStorage": {
             "target": "Package",
             "version": "[4.5.0, )"

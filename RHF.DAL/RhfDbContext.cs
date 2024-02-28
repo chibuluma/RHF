@@ -24,6 +24,7 @@ public partial class RhfDbContext : IdentityDbContext
     public virtual DbSet<DonationsDetail> DonationsDetails { get; set; }
 
     public virtual DbSet<DonationsHeader> DonationsHeaders { get; set; }
+    public virtual DbSet<ProjectTasks> ProjectTasks { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseMySQL("Server=localhost;Database=RHF_db;Uid=root;Pwd=mvemjsunp;");
@@ -65,6 +66,14 @@ public partial class RhfDbContext : IdentityDbContext
 
             entity.HasIndex(e => e.Id, "IX_DonationsHeader_Id").IsUnique();
         });
+
+        modelBuilder.Entity<ProjectTasks>(entity =>
+        {
+            entity.ToTable("ProjectTasks");
+
+            entity.HasIndex(e => e.ID, "IX_ProjectTasks_Id").IsUnique();
+        });
+
         base.OnModelCreating(modelBuilder);
     }
 

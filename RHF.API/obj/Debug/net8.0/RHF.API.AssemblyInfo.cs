@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RHF.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aff7dd6b771fe0f45477b91171f38ba6e74a6e7f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9240933cdeec5973d42472f87d6a928cc30fb6ec")]
 [assembly: System.Reflection.AssemblyProductAttribute("RHF.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RHF.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

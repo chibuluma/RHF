@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "WAlUfzKJz73ba1LUFxY3f41FiKM1OVZ1aJln7rTpnDaSP/zLCu96s+7RW1Edt1wh6HSxKXK3VIdlGcW5YFyk2Q==",
+  "dgSpecHash": "mka5THaJ+urms/TQwo0akr7LOlAaMwkGk8+Al9QjD6kFloqs5vFTKXzMC2Y82WUKCfor3TAMFoM7hPdMqvpjkA==",
   "success": true,
   "projectFilePath": "/Users/mathews/Projects/RHFProject/RHF.WEB/RHF.WEB.csproj",
   "expectedPackageFiles": [
+    "/Users/mathews/.nuget/packages/blazorcalendar/2.6.7/blazorcalendar.2.6.7.nupkg.sha512",
     "/Users/mathews/.nuget/packages/blazored.localstorage/4.5.0/blazored.localstorage.4.5.0.nupkg.sha512",
     "/Users/mathews/.nuget/packages/bouncycastle.cryptography/2.2.1/bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "/Users/mathews/.nuget/packages/mailkit/4.3.0/mailkit.4.3.0.nupkg.sha512",

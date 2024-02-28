@@ -5,6 +5,7 @@
 @inject HttpClient Http
 @inject ISnackbar SnackbarService
 @inject AuthenticationStateProvider GetAuthenticationStateAsync
+@inject IDialogService DialogService
 
 
 <style>
@@ -119,6 +120,7 @@ button.btn-primary:hover {
     private string password = string.Empty;
     private string[] errorList = [];
     ObjectPosition ImagePosition = ObjectPosition.Center;
+    DialogOptions disableBackdropClick = new DialogOptions() { DisableBackdropClick = true, CloseButton=false};
 
     public async Task DoLoginAsync()
     {
@@ -146,14 +148,22 @@ button.btn-primary:hover {
 
         if (result.Succeeded)
         {
-            success = true;
-            var check_if_linked = await IsAccountLinked(email);
-            email = password = string.Empty;
+            var user = await IsAccountConfirmed(email);
+            
+            if(!user){
+                OpenDialog(disableBackdropClick);
+            }
+            else
+            {
+                var check_if_linked = await IsAccountLinked(email);
+                email = password = string.Empty;
 
-            if(check_if_linked)
-                UriHelper.NavigateTo("/");
-            else{
-                UriHelper.NavigateTo("benefactor");
+                if(check_if_linked){
+                    UriHelper.NavigateTo("/");
+                }
+                else{
+                    UriHelper.NavigateTo("benefactor");
+                }
             }
         }
         else
@@ -163,8 +173,39 @@ button.btn-primary:hover {
         }
 
     }
+    private async void OpenDialog(DialogOptions options)
+    {
+        var parameters = new DialogParameters<RHF.WEB.Pages.Dialog>();
+        parameters.Add(x => x.ContentText, $"The account with Email:{email} has not yet being confirmed");
+        parameters.Add(x => x.ButtonText, "Ok");
+        parameters.Add(x => x.Color, Color.Info);
+        var dialog = DialogService.Show<RHF.WEB.Pages.Dialog>("Account not Confirmed", parameters,options);
+        var result = await dialog.Result;
 
+        if(!result.Canceled){
+            SnackbarService.Add
+            (
+                @<div>
+                    <ul>
+                        <li>Note that you will access the portal in Guest mode only</li>
+                    </ul>
+                </div>, severity: Severity.Info
+            );
+        }else{
+                await Acct.LogoutAsync();     
+        }
 
+    }
+    public async Task<bool> IsAccountConfirmed(string id){
+        var response = await Http.GetAsync($"api/UserManager/User/IsUserAccountConfirmed/{id}"); 
+
+        if(response.IsSuccessStatusCode){
+            return true;
+        }
+        else{
+            return false; 
+        }
+    }
     public async Task<bool> IsAccountLinked(string id){
         var account = await Http.GetAsync($"api/Benefactor/GetBenefactorByUserId/{id}"); 
 

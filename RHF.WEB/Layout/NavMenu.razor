@@ -16,14 +16,23 @@
             <MudNavLink Href="/benefactor" Icon="@Icons.Material.Filled.PersonAdd" IconColor="Color.Success">Add Benefactors</MudNavLink>
             <MudNavLink Href="/benefactorInfo" Icon="@Icons.Material.Filled.TableRows" IconColor="Color.Info">View Benefactors</MudNavLink>
         </MudNavGroup>
-        <MudNavGroup Title="Contributors" Icon="@Icons.Material.Filled.Folder" Expanded="true">
-            <MudNavLink Href="/contibutor" Icon="@Icons.Material.Filled.AddShoppingCart" IconColor="Color.Success">Add Contributions</MudNavLink>
-            <MudNavLink Href="/contibutorInfo" Icon="@Icons.Material.Filled.FilePresent" IconColor="Color.Info">View Contributions</MudNavLink>
+        <MudNavGroup Title="Beneficiary" Icon="@Icons.Material.Filled.Folder" Expanded="true">
+            <MudNavLink Href="/beneficiary" Icon="@Icons.Material.Filled.AddShoppingCart" IconColor="Color.Success">Add Deneficiaries</MudNavLink>
+            <MudNavLink Href="/beneficiaryInfo" Icon="@Icons.Material.Filled.FilePresent" IconColor="Color.Info">View Deneficiaries</MudNavLink>
         </MudNavGroup>
+    <AuthorizeView Roles="Project Manager">
+        <Authorized>
+            <MudDivider Class="my-2" />
+            <MudNavGroup Title="Projects" Icon="@Icons.Material.Filled.Settings" Expanded="false">
+                <MudNavLink Href="/add-projects" Icon="@Icons.Material.Filled.House" IconColor="Color.Info">Add Projects</MudNavLink>
+                <MudNavLink Href="/view-projects" Icon="@Icons.Material.Filled.FolderShared" IconColor="Color.Tertiary">View Projects</MudNavLink>
+            </MudNavGroup>
+        </Authorized>
+    </AuthorizeView>
     <AuthorizeView Roles="Admin">
         <Authorized>
             <MudDivider Class="my-2" />
-            <MudNavGroup Title="Admin" Icon="@Icons.Material.Filled.Settings" Expanded="true">
+            <MudNavGroup Title="Admin" Icon="@Icons.Material.Filled.AdminPanelSettings" Expanded="false">
                 <MudNavLink Href="/add-roles" Icon="@Icons.Material.Filled.Pin" IconColor="Color.Secondary">Add Roles</MudNavLink>
                 <MudNavLink Href="/assign-roles" Icon="@Icons.Material.Filled.AddShoppingCart" IconColor="Color.Primary">Assign Roles</MudNavLink>
                 <MudNavLink Href="/users" Icon="@Icons.Material.Filled.VerifiedUser" IconColor="Color.Surface">View Users</MudNavLink>

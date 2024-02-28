@@ -1,5 +1,6 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/blazor.boot.json
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/blazor.webassembly.js
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/BlazorCalendar.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/Blazored.LocalStorage.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/BouncyCastle.Cryptography.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/dotnet.js
@@ -345,6 +346,7 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Drawing.Primitives.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Numerics.Vectors.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Xml.XPath.XDocument.wasm.gz
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/BlazorCalendar.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.Security.Cryptography.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.ComponentModel.TypeConverter.wasm.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/wwwroot/_framework/System.IO.FileSystem.wasm.gz
@@ -443,6 +445,7 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/RHF.WEB.staticwebassets.runtime.json
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/RHF.WEB.dll
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/RHF.WEB.pdb
+/Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/BlazorCalendar.dll
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/Blazored.LocalStorage.dll
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/BouncyCastle.Cryptography.dll
 /Users/mathews/Projects/RHFProject/RHF.WEB/bin/Debug/net8.0/MailKit.dll
@@ -667,6 +670,7 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/RHF.WEB.csproj.CoreCompileInputs.cache
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/RHF.WEB.MvcApplicationPartsAssemblyInfo.cache
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/RHF.WEB.sourcelink.json
+/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/BlazorCalendar.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/Blazored.LocalStorage.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/BouncyCastle.Cryptography.wasm
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/webcil/MailKit.wasm
@@ -889,6 +893,7 @@
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/scopedcss/bundle/RHF.WEB.styles.css
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/scopedcss/projectbundle/RHF.WEB.bundle.scp.css
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/uixh1ja8ig.gz
+/Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/jw63ix01m0.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/hudj0l1l5h.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/fn4tr377f6.gz
 /Users/mathews/Projects/RHFProject/RHF.WEB/obj/Debug/net8.0/compressed/e5lsmny7lt.gz

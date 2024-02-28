@@ -1,0 +1,114 @@
+@inject HttpClient Http
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ISnackbar SnackbarService
+
+<MudDialog>
+    <DialogContent>
+        <MudText>@ContentText</MudText>
+        <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator/>
+                    <MudSelect For="@(() => model.Code)" HelperText="Select province" T="string" Label="Province"
+                        Variant="Variant.Text" @bind-Value="province">
+                        @foreach (var state in states)
+                        {
+                            <MudSelectItem T="string" Value="@state">@state</MudSelectItem>
+                        }
+                    </MudSelect>
+                    <MudTextField For="@(() => model.Caption)" Label="Name of beneficiary" @bind-Value="caption" />
+                    <MudTextField  Lines="3" For="@(() => model.Comment)" Label="Comment about the donation" @bind-Value="comment"/>
+                    <MudSelect  For="@(() => model.FillStyle)" HelperText="Pick event formatting"
+                        T="BlazorCalendar.FillStyleEnum" Label="Format" Variant="Variant.Text" @bind-Value="fillStyle">
+                        <MudSelectItem Value="@BlazorCalendar.FillStyleEnum.CrossDots" />
+                        <MudSelectItem Value="@BlazorCalendar.FillStyleEnum.ZigZag" />
+                        <MudSelectItem Value="@BlazorCalendar.FillStyleEnum.Triangles" />
+                        <MudSelectItem Value="@BlazorCalendar.FillStyleEnum.Fill" />
+                    </MudSelect>
+                    <MudSelect @bind-Value="color" For="@(() => model.Color)" HelperText="Pick event color" T="string" Label="Color"
+                        Variant="Variant.Text">
+                        <MudSelectItem Value="@Colors.Green.Accent2">Green</MudSelectItem>
+                        <MudSelectItem Value="@Colors.Orange.Accent2">Orange</MudSelectItem>
+                        <MudSelectItem Value="@Colors.Yellow.Accent2">Yellow</MudSelectItem>
+                        <MudSelectItem Value="@Colors.Blue.Accent2">Blue</MudSelectItem>
+                        <MudSelectItem Value="@Colors.Red.Accent2">Red</MudSelectItem>
+                        <MudSelectItem Value="@Colors.Blue.Darken4">Dark Blue</MudSelectItem>
+                    </MudSelect>
+                    <MudSwitch @bind-Value="draggable" Label="Can event date be later changed" For="@(() => model.NotBeDraggable)" />
+                    <MudButton  ButtonType="ButtonType.Submit" Color="@Color" Variant="Variant.Filled">@ButtonText</MudButton>
+                </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [Parameter] public string ContentText { get; set; }
+    [Parameter] public string StartDate { get; set; }
+    [Parameter] public string ButtonText { get; set; }
+
+    [Parameter] public Color Color { get; set; }
+    private System.Security.Claims.ClaimsPrincipal User;
+    public BlazorCalendar.Models.Tasks model = new();
+    private string province { get; set; } = "Nothing selected";
+    private string caption { get; set; }
+    private string comment { get; set; }
+    private string color { get; set; }
+    private bool draggable { get; set; }
+    private BlazorCalendar.FillStyleEnum fillStyle { get; set; } = BlazorCalendar.FillStyleEnum.Fill;
+
+    protected async override Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        User = authState.User;   
+    }
+    private async void OnValidSubmit()
+    {
+        var projectTask = new ProjectTasks()
+                            {
+                                Caption = caption,
+                                Code = province,
+                                Color = color,
+                                Comment = comment,
+                                CreatedBy = User?.Identity.Name,
+                                DateEnd = DateTime.Parse(StartDate),
+                                DateStart = DateTime.Parse(StartDate),
+                                FillStyle = (FillStyleEnum)fillStyle,
+                                NotBeDraggable = draggable
+                            };
+
+        var req = new HttpRequestMessage();
+        req.Content = JsonContent.Create(projectTask);
+        req.Method = HttpMethod.Post;
+        req.RequestUri = new Uri($"api/ProjectsManager/AddProject", UriKind.Relative);
+
+        var response = await Http.SendAsync(req);
+
+        if (response.IsSuccessStatusCode)
+        {
+            SnackbarService.Add(
+            @<div>
+                <p>Project @caption added successfully</p>
+            </div>, severity: Severity.Success,
+                        config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+                        );
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+        else
+        {
+            var msg = await response.Content.ReadAsStringAsync();
+            SnackbarService.Add(
+            @<div>
+                <p>@msg</p>
+            </div>, severity: Severity.Error,
+        config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+        );
+        }
+    }
+
+    void Cancel() => MudDialog.Cancel();
+
+    private string[] states =
+    {
+        "Copperbelt", "Lusaka", "Western", "Eastern",
+    };
+}

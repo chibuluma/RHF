@@ -2,7 +2,6 @@ using System.Security.Claims;
 
 namespace RHF.Shared;
 public class UserInfo{
-    public bool ShowDetails { get; set; }
     /// <summary>
     /// The email address.
     /// </summary>
@@ -12,7 +11,10 @@ public class UserInfo{
     /// A value indicating whether the email has been confirmed yet.
     /// </summary>
     public bool IsEmailConfirmed { get; set; }
-
+    /// <summary>
+    /// A value indicating whether the user has setup his details yet.
+    /// </summary>
+    public bool IsUserAccountMapped { get; set; }
     /// <summary>
     /// The list of roles for the user.
     /// </summary>

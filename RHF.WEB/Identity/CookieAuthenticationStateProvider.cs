@@ -191,7 +191,6 @@ namespace RHF.WEB.Identity
                 // Add any additional claims
                 claims.AddRange(
                     userInfo.Claims
-                       // .Where(c => c.Value != ClaimTypes.Name && c.Value != ClaimTypes.Email)
                         .Select(c => new Claim(c.Type, c.Value))
                 );
 
