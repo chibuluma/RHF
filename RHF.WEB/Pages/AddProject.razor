@@ -168,8 +168,8 @@
         var dialog = DialogService.Show<EventDialog>("Event", parameters, options);
         var result = await dialog.Result;
 		
-		UriHelper.Refresh();
-		
+		if(!result.Cancelled)
+			UriHelper.Refresh();		
 	}
 
 	public async Task InvokeViewDialogAsync(RHF.Shared.ProjectTasks task){
@@ -180,7 +180,9 @@
 		var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.Large };
         var dialog = DialogService.Show<EventViewDialog>("Event", parameters, options);
         var result = await dialog.Result;
-		UriHelper.Refresh();
+		
+		if(!result.Cancelled)
+			UriHelper.Refresh();
 
 
 	}
