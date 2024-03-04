@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using RHF.API.Services;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -13,8 +14,21 @@ public class MailController : ControllerBase
 
     [HttpPost]
     [Route("SendMail")]
-    public bool SendMail(MailData mailData)
+    public ActionResult SendMail(MailData mailData)
     {
-        return _mailService.SendMail(mailData);
+        try
+        {
+            var result =  _mailService.SendMail(mailData);
+            if(result)
+                return Ok();
+            else{
+                return BadRequest();
+            }
+        }
+        catch (System.Exception)
+        {
+            throw;
+        }
+
     }
 }

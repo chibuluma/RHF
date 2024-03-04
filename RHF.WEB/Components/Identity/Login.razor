@@ -175,11 +175,11 @@ button.btn-primary:hover {
     }
     private async void OpenDialog(DialogOptions options)
     {
-        var parameters = new DialogParameters<RHF.WEB.Pages.Dialog>();
+        var parameters = new DialogParameters<RHF.WEB.Pages.Dialogs.Dialog>();
         parameters.Add(x => x.ContentText, $"The account with Email:{email} has not yet being confirmed");
         parameters.Add(x => x.ButtonText, "Ok");
         parameters.Add(x => x.Color, Color.Info);
-        var dialog = DialogService.Show<RHF.WEB.Pages.Dialog>("Account not Confirmed", parameters,options);
+        var dialog = DialogService.Show<RHF.WEB.Pages.Dialogs.Dialog>("Account not Confirmed", parameters,options);
         var result = await dialog.Result;
 
         if(!result.Canceled){

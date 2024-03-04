@@ -1,10 +1,40 @@
 {
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/RHF.API/RHF.API.csproj"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ] ,  
     "configurations": [
         {
-            "name": "Launch and Debug Standalone Blazor WebAssembly App",
-            "type": "blazorwasm",
+            "name": ".NET Core Launch (webapi)",
+            "type": "coreclr",
             "request": "launch",
-            "cwd": "${workspaceFolder}"
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/RHF.API/bin/Debug/net8.0/RHF.API.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/RHF.API/",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            },
+            "requireExactSource": false  // Add this line
         }
     ]
 }

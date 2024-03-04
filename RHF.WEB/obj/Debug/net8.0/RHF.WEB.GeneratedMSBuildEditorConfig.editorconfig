@@ -66,40 +66,44 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQmVuZWZhY3RvckluZm8ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/ContributorDialog.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ29udHJpYnV0b3JEaWFsb2cucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Dashboard.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvYXJkLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Dialog.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGlhbG9nLnJhem9y
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Dialogs/ContributorDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGlhbG9ncy9Db250cmlidXRvckRpYWxvZy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/EventDialog.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXZlbnREaWFsb2cucmF6b3I=
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Dialogs/Dialog.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGlhbG9ncy9EaWFsb2cucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/EventViewDialog.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXZlbnRWaWV3RGlhbG9nLnJhem9y
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Dialogs/EventDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGlhbG9ncy9FdmVudERpYWxvZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Dialogs/EventViewDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGlhbG9ncy9FdmVudFZpZXdEaWFsb2cucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Dialogs/MobileMoneyDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGlhbG9ncy9Nb2JpbGVNb25leURpYWxvZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Dialogs/PasswordDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGlhbG9ncy9QYXNzd29yZERpYWxvZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Dialogs/ViewContributorDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGlhbG9ncy9WaWV3Q29udHJpYnV0b3JEaWFsb2cucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9tZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/PasswordDialog.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUGFzc3dvcmREaWFsb2cucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Users.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVXNlcnMucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/ViewContributorDialog.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVmlld0NvbnRyaWJ1dG9yRGlhbG9nLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/mathews/Projects/RHFProject/RHF.WEB/_Imports.razor]

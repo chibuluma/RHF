@@ -21,6 +21,12 @@
 			"file": "/Users/mathews/Projects/RHFProject/RHF.API/RHF.API.csproj",
 			"problemMatcher": [],
 			"label": "dotnet: watch RHF.API"
+		},
+		{
+			"type": "Live Preview",
+			"workspacePath": "/Users/mathews/Projects/RHFProject",
+			"problemMatcher": [],
+			"label": "Live Preview: Run Server"
 		}
 	]
 }

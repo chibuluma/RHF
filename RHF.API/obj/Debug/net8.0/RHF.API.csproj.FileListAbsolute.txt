@@ -24,6 +24,7 @@
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Sqlite.dll
+/Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.Extensions.Configuration.Binder.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.Extensions.DependencyModel.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.Extensions.Identity.Core.dll
 /Users/mathews/Projects/RHFProject/RHF.API/bin/Debug/net8.0/Microsoft.Extensions.Identity.Stores.dll

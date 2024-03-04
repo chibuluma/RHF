@@ -1,0 +1,88 @@
+@inject HttpClient Http
+@inject ISnackbar SnackbarService
+
+<MudDialog>
+    <DialogContent>
+        <MudText>@ContentText</MudText>
+        <MudTextField Label="Amount" HelperText="Choose a strong password" Class="mt-3"
+                    @bind-Value="amount" InputType="InputType.Number"/>    
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="@Color" Variant="Variant.Filled" OnClick="(ags)=>MakePayment(amount)">@ButtonText</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter] public string ContentText { get; set; }
+
+    [Parameter] public string ButtonText { get; set; }
+
+    [Parameter] public Color Color { get; set; }
+
+    double amount = 0.0;
+    void Submit() {
+         MudDialog.Close(DialogResult.Ok(true));
+    }
+    void Cancel() => MudDialog.Cancel();
+
+    async Task MakePayment(double amount)
+    {
+        @* var money = new MobileMoney();
+
+        money.MUID = "01HR1S3V1JQVBNE3PY7TDQTAWB";
+        money.Transaction_Details = "Testing";
+        money.Amount = 1.0;
+        money.PhoneNumber = 0972552446;
+
+        var req = new HttpRequestMessage();
+        req.Content = JsonContent.Create(money);
+        req.Method = HttpMethod.Post;
+        req.RequestUri = new Uri($"https://api.moneyunify.com/airtel/request_payment", UriKind.Absolute); *@
+
+        string url = "https://openapiuat.airtel.africa/standard/v2/disbursements/";
+
+        using (HttpClient client = new HttpClient())
+        {
+            HttpResponseMessage response = await client.PostAsync(url, null);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string responseData = await response.Content.ReadAsStringAsync();
+
+                SnackbarService.Add
+                (
+                    @<div>
+                        <p>Payment sent successfully</p>
+                    </div>, severity: Severity.Success
+                );
+            }
+            else
+            {
+                Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
+            }
+        }
+
+        //var response = await Http.SendAsync(req);
+@* 
+        if (response.IsSuccessStatusCode)
+        {
+            SnackbarService.Add
+            (
+                @<div>
+                    <p>Payment sent successfully</p>
+                </div>, severity: Severity.Success
+            );
+        }
+        else
+        {
+            SnackbarService.Add
+            (
+                @<div>
+                    <p>Error making payment email</p>
+                </div>, severity: Severity.Error
+            );
+        } *@
+    }
+}

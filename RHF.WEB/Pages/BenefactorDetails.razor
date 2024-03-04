@@ -8,84 +8,90 @@
 @inject IDialogService DialogService
 @inject NavigationManager UriHelper
 
-<MudButton Disabled="IsCFO" ButtonType="ButtonType.Button" @onclick="AddContributionDialog" StartIcon="@Icons.Material.Filled.Money" 
-    Variant="Variant.Outlined" Size="Size.Large" Color="Color.Success" Class="ml-auto">Add Contribution
+<MudButton Disabled="IsCFO" ButtonType="ButtonType.Button" @onclick="AddContributionDialog"
+    StartIcon="@Icons.Material.Filled.Money" Variant="Variant.Outlined" Size="Size.Large" Color="Color.Success"
+    Class="ml-auto">Add Contribution
 </MudButton>
 
-<MudButton ButtonType="ButtonType.Button" @onclick="ViewContributionsDialog" StartIcon="@Icons.Material.Filled.List" 
+<MudButton ButtonType="ButtonType.Button" @onclick="ViewContributionsDialog" StartIcon="@Icons.Material.Filled.List"
     Variant="Variant.Outlined" Size="Size.Large" Color="Color.Info" Class="ml-auto">View Contributions
 </MudButton>
 
-<MudDivider Class="my-2"/>
+<MudButton ButtonType="ButtonType.Button" @onclick="MakeMobileMoneyPaymentDialog" StartIcon="@Icons.Material.Filled.Money"
+    Variant="Variant.Outlined" Size="Size.Large" Color="Color.Error" Class="ml-auto">Pay with Airtel
+</MudButton>
+
+<MudDivider Class="my-2" />
 
 <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
-<DataAnnotationsValidator/>
+    <DataAnnotationsValidator />
 
-<MudGrid>
+    <MudGrid>
 
-    <MudItem xs="12" sm="6">
-        <MudCard>
-            <MudCardContent>
-                <MudSelect T="string" Label="Title" AnchorOrigin="Origin.BottomCenter" 
-                            @bind-Value=model.Title
-                            For="@(() => model.Title)">
-                    <MudSelectItem Value="@("Prof.")" />
-                    <MudSelectItem Value="@("Dr.")" />
-                    <MudSelectItem Value="@("Mr.")" />
-                    <MudSelectItem Value="@("Mrs.")" />
-                    <MudSelectItem Value="@("Ms.")" />
-                </MudSelect>
-                <MudTextField Label="NRC #" HelperText="Format. XXXXXX/XX/X"
-                              @bind-Value="model.Nrc" For="@(() => model.Nrc)"/>
-                <MudTextField Label="First name" HelperText="Max. 15 characters"
-                              @bind-Value="model.FirstName" For="@(() => model.FirstName)"/>
-                <MudTextField Label="Middle name" HelperText="Max. 15 characters"
-                              @bind-Value="model.MiddleName" For="@(() => model.MiddleName)"/>
-                <MudTextField Label="Last name" HelperText="Max. 15 characters"
-                              @bind-Value="model.LastName" For="@(() => model.LastName)"/>
-            </MudCardContent>
+        <MudItem xs="12" sm="6">
+            <MudCard>
+                <MudCardContent>
+                    <MudSelect T="string" Label="Title" AnchorOrigin="Origin.BottomCenter" @bind-Value=model.Title
+                        For="@(() => model.Title)">
+                        <MudSelectItem Value="@("Prof.")" />
+                        <MudSelectItem Value="@("Dr.")" />
+                        <MudSelectItem Value="@("Mr.")" />
+                        <MudSelectItem Value="@("Mrs.")" />
+                        <MudSelectItem Value="@("Ms.")" />
+                    </MudSelect>
+                    <MudTextField Label="NRC #" HelperText="Format. XXXXXX/XX/X" @bind-Value="model.Nrc"
+                        For="@(() => model.Nrc)" />
+                    <MudTextField Label="First name" HelperText="Max. 15 characters" @bind-Value="model.FirstName"
+                        For="@(() => model.FirstName)" />
+                    <MudTextField Label="Middle name" HelperText="Max. 15 characters" @bind-Value="model.MiddleName"
+                        For="@(() => model.MiddleName)" />
+                    <MudTextField Label="Last name" HelperText="Max. 15 characters" @bind-Value="model.LastName"
+                        For="@(() => model.LastName)" />
+                </MudCardContent>
 
-        </MudCard>
-    </MudItem>
-     <MudItem xs="12" sm="6">
-        <MudCard>
-            <MudCardContent>
-                <MudSelect T="string" Label="Gender" AnchorOrigin="Origin.BottomCenter" 
-                            @bind-Value=model.Gender
-                            For="@(() => model.Gender)">
-                    <MudSelectItem Value="@("Male")" />
-                    <MudSelectItem Value="@("Female")" />
-                </MudSelect>
-                <MudTextField Label="Phone number" HelperText="Start with country code 260..." Class="mt-3"
-                              @bind-Value="model.PhoneNumber" For="@(() => model.PhoneNumber)" InputType="InputType.Number"/>
-                <MudCardActions>
-                    <MudButton ButtonType="ButtonType.Submit" StartIcon="@Icons.Material.Filled.Save" Variant="Variant.Outlined" Color="Color.Primary" Class="ml-auto">Update</MudButton>
-                    <MudButton Disabled="@IsAdmin" ButtonType="ButtonType.Button" @onclick="DeleteContributor" StartIcon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Warning" Class="ml-auto">Remove</MudButton>
-                </MudCardActions>
-            </MudCardContent>
-        </MudCard>
-     </MudItem>
-    <MudItem xs="12">
-        <MudText Typo="Typo.body2" Align="Align.Center">
-            Fill out the form correctly to submit.
-        </MudText>
-    </MudItem>
-</MudGrid>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudCard>
+                <MudCardContent>
+                    <MudSelect T="string" Label="Gender" AnchorOrigin="Origin.BottomCenter" @bind-Value=model.Gender
+                        For="@(() => model.Gender)">
+                        <MudSelectItem Value="@("Male")" />
+                        <MudSelectItem Value="@("Female")" />
+                    </MudSelect>
+                    <MudTextField Label="Phone number" HelperText="Start with country code 260..." Class="mt-3"
+                        @bind-Value="model.PhoneNumber" For="@(() => model.PhoneNumber)" InputType="InputType.Number" />
+                    <MudCardActions>
+                        <MudButton ButtonType="ButtonType.Submit" StartIcon="@Icons.Material.Filled.Save"
+                            Variant="Variant.Outlined" Color="Color.Primary" Class="ml-auto">Update</MudButton>
+                        <MudButton Disabled="@IsAdmin" ButtonType="ButtonType.Button" @onclick="DeleteContributor"
+                            StartIcon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Warning"
+                            Class="ml-auto">Remove</MudButton>
+                    </MudCardActions>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12">
+            <MudText Typo="Typo.body2" Align="Align.Center">
+                Fill out the form correctly to submit.
+            </MudText>
+        </MudItem>
+    </MudGrid>
 </EditForm>
 
 <MudPopover Open="@IsOpen" AnchorOrigin="@Origin.CenterCenter" Class="px-4 pt-4">
-    <MudProgressCircular Color="Color.Info" Style="height:80px;width:80px;" Value="@Value" Indeterminate=false/>
+    <MudProgressCircular Color="Color.Info" Style="height:80px;width:80px;" Value="@Value" Indeterminate=false />
 </MudPopover>
 
 
 @code {
     [Parameter]
-    public string Id {get; set;} = null!;
+    public string Id { get; set; } = null!;
     RHF.Shared.Benefactor model = new RHF.Shared.Benefactor();
 
     bool success;
     public bool IsOpen { get; set; }
-	public int Value { get; set; }
+    public int Value { get; set; }
     private System.Security.Claims.ClaimsPrincipal User;
     private bool IsAdmin => !User?.IsInRole("Admin") ?? true;
     private bool IsCFO => !User?.IsInRole("CFO") ?? true;
@@ -94,16 +100,16 @@
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         User = authState.User;
 
-        var result = await Http.GetFromJsonAsync<RHF.Shared.Benefactor>($"api/Benefactor/{Id}");   
-        
-        if(result != null)
-            model = result;   
+        var result = await Http.GetFromJsonAsync<RHF.Shared.Benefactor>($"api/Benefactor/{Id}");
+
+        if (result != null)
+            model = result;
     }
     private async void OnValidSubmit(EditContext context)
     {
         success = true;
-        var result = await Http.PutAsJsonAsync<RHF.Shared.Benefactor>($"api/Benefactor/{Id}", model);  
-        IsOpen = true;  
+        var result = await Http.PutAsJsonAsync<RHF.Shared.Benefactor>($"api/Benefactor/{Id}", model);
+        IsOpen = true;
         SimulateProgress();
         await Task.Delay(5000);
         IsOpen = false;
@@ -111,31 +117,82 @@
         StateHasChanged();
     }
 
-    public void ShowMessage(HttpResponseMessage message){
-        if(message.IsSuccessStatusCode){
+    public void ShowMessage(HttpResponseMessage message)
+    {
+        if (message.IsSuccessStatusCode)
+        {
             SnackbarService.Add
-            (
-                @<div>
-                    <ul>
-                        <li>@model.Nrc Updated successfully</li>
-                    </ul>
-                </div>, severity: Severity.Success
-            );
-        }else{
+                (
+    @<div>
+        <ul>
+            <li>@model.Nrc Updated successfully</li>
+        </ul>
+    </div>, severity: Severity.Success
+                );
+        }
+        else
+        {
             success = false;
             SnackbarService.Add
+                (
+    @<div>
+        <p>@message.Content.ReadAsStringAsync().GetAwaiter().GetResult()</p>
+    </div>, severity: Severity.Error
+                );
+        }
+
+    }
+    async Task MakePayment(double amount)
+    {
+        var money = new MobileMoney();
+
+        money.MUID = "01HR1S3V1JQVBNE3PY7TDQTAWB";
+        money.Transaction_Details = "Testing";
+        money.Amount = 1.0;
+        money.PhoneNumber = 972552446;
+
+        var req = new HttpRequestMessage();
+        req.Content = JsonContent.Create(money);
+        req.Method = HttpMethod.Post;
+        req.RequestUri = new Uri($"https://api.moneyunify.com/airtel/request_payment", UriKind.Relative);
+
+        var response = await Http.SendAsync(req);
+
+        if (response.IsSuccessStatusCode)
+        {
+            SnackbarService.Add
             (
                 @<div>
-                    <p>@message.Content.ReadAsStringAsync().GetAwaiter().GetResult()</p>
+                    <p>Payment sent successfully</p>
+                </div>, severity: Severity.Success
+            );
+        }
+        else
+        {
+            SnackbarService.Add
+            (
+                @<div>
+                    <p>Error making payment email</p>
                 </div>, severity: Severity.Error
             );
         }
+    }
 
+    private void MakeMobileMoneyPaymentDialog(){
+        var parameters = new DialogParameters<MobileMoneyDialog>();
+        parameters.Add(x => x.ContentText, $"{model.Title} {model.FirstName} {model.LastName}");
+        parameters.Add(x => x.ButtonText, "Pay");
+        parameters.Add(x => x.Color, Color.Primary);
+
+        var options = new DialogOptions() { CloseButton = false, MaxWidth = MaxWidth.ExtraLarge };
+
+        var dialog = DialogService.Show<MobileMoneyDialog>("Make a payment", parameters, options);
     }
     private void AddContributionDialog()
     {
         var parameters = new DialogParameters<ContributorDialog>();
-        parameters.Add(x => x.Contributor, $"{model.FirstName} {model.LastName}");
+        parameters.Add(x => x.Contributor, $"{model.Title} {model.FirstName} {model.LastName}");
+        parameters.Add(x => x.ContributorEmail, $"{model.UserId}");
         parameters.Add(x => x.Identifier, Id);
         parameters.Add(x => x.ButtonText, "Save");
         parameters.Add(x => x.Color, Color.Primary);
@@ -158,21 +215,22 @@
         var dialog = DialogService.Show<ViewContributorDialog>("View Contribution(s)", parameters, options);
 
     }
-    
+
     public async void SimulateProgress()
-	{
-		Value = 0;
-		do
-		{
-			Value += 4;
-			StateHasChanged();
-			await Task.Delay(150);
+    {
+        Value = 0;
+        do
+        {
+            Value += 4;
+            StateHasChanged();
+            await Task.Delay(150);
 
-		} while (Value < 100);
+        } while (Value < 100);
 
-	}
+    }
 
-    public async Task<string> ContentToString(HttpContent httpContent){
+    public async Task<string> ContentToString(HttpContent httpContent)
+    {
         var message = await httpContent.ReadAsStringAsync();
         return message;
     }
@@ -192,15 +250,16 @@
         {
             var response = await Http.DeleteAsync($"api/Benefactor/{Id}");
 
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
                 UriHelper.NavigateTo("benefactorInfo");
-            else{
+            else
+            {
                 SnackbarService.Add
-                (
-                    @<div>
-                        <p>await ContentToString(@response.Content)</p>
-                    </div>, severity: Severity.Error
-                );
+                    (
+    @<div>
+        <p>await ContentToString(@response.Content)</p>
+    </div>, severity: Severity.Error
+);
             }
 
         }

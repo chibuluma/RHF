@@ -2,8 +2,14 @@ using Microsoft.EntityFrameworkCore;
 using RHF.DAL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RHF.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .Build();
 
 // cookie authentication
 builder.Services
@@ -22,6 +28,11 @@ builder.Services.AddDbContext<RhfDbContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("RHFContext")));
 #pragma warning restore CS8604 // Possible null reference argument.
 
+
+// builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+
+builder.Services.AddScoped<IMailService, MailService>();
+
 // add identity and opt-in to endpoints
 builder.Services.AddIdentityCore<IdentityUser>()
      .AddRoles<IdentityRole>()
@@ -35,8 +46,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<RhfDbContext>();
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
-builder.Services.AddTransient<IMailService, MailService>();
 
 builder.Services.AddCors(options =>  
 {  
@@ -51,8 +60,13 @@ builder.Services.AddCors(options =>
         });  
 });  
   
-// services.AddResponseCaching();
+builder.Services.AddOptions<MailSettings>()
+    .Bind(builder.Configuration.GetSection("MailSettings"), opt=>opt.ErrorOnUnknownConfiguration=true)
+    .ValidateDataAnnotations();
+
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

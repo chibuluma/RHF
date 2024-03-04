@@ -6,7 +6,8 @@ using RHF.Shared;
 
 [Route("api/[controller]")]
 [ApiController]
-public class BenefactorController : ControllerBase {
+public class BenefactorController : ControllerBase
+{
     private readonly RhfDbContext context;
     private readonly IMapper mapper;
     public BenefactorController(RhfDbContext dbcontext, IMapper _mapper)
@@ -17,8 +18,9 @@ public class BenefactorController : ControllerBase {
 
     //GET /api/Benefactors
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Benefactor>>> GetBenefactors(){
-        if(context.Benefactors == null)
+    public async Task<ActionResult<IEnumerable<Benefactor>>> GetBenefactors()
+    {
+        if (context.Benefactors == null)
             return NotFound();
 
         return await context.Benefactors.ToListAsync();
@@ -27,27 +29,29 @@ public class BenefactorController : ControllerBase {
     //GET /api/Benefactors/5
     [HttpGet]
     [Route("GetBenefactorByUserId/{id}")]
-    public async Task<ActionResult<Benefactor>> GetBenefactorByEmail(string id){
-        if(context.Benefactors == null)
+    public async Task<ActionResult<Benefactor>> GetBenefactorByEmail(string id)
+    {
+        if (context.Benefactors == null)
             return NotFound();
 
         var benefactor = await context.Benefactors
-            .FirstOrDefaultAsync(i=>i.UserId == id); 
+            .FirstOrDefaultAsync(i => i.UserId == id);
 
-        if(benefactor == null)
+        if (benefactor == null)
             return NoContent();
 
         return benefactor;
     }
     //GET /api/Benefactors/5
     [HttpGet("{id}")]
-    public async Task<ActionResult<Benefactor>> GetBenefactors(int id){
-        if(context.Benefactors == null)
+    public async Task<ActionResult<Benefactor>> GetBenefactors(int id)
+    {
+        if (context.Benefactors == null)
             return NotFound();
 
-        var benefactor = await context.Benefactors.FindAsync(id); 
+        var benefactor = await context.Benefactors.FindAsync(id);
 
-        if(benefactor == null)
+        if (benefactor == null)
             return NotFound();
 
         return benefactor;
@@ -55,18 +59,40 @@ public class BenefactorController : ControllerBase {
 
     //POST /api/Benefactors
     [HttpPost]
-    public async Task<ActionResult<Benefactor>> PostBenefactors(BenefactorDTO benefactorDTO){
+    public async Task<ActionResult<Benefactor>> PostBenefactors(BenefactorDTO benefactorDTO)
+    {
+        // Validate the model state
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        // Map DTO to Benefactor entity
         var benefactorInfo = mapper.Map<Benefactor>(benefactorDTO);
 
+        // Add benefactor to the context
         context.Add(benefactorInfo);
-        await context.SaveChangesAsync();
- 
-        return CreatedAtAction(nameof(GetBenefactors), new {id = benefactorInfo.Id}, benefactorInfo);
+
+        try
+        {
+            // Save changes to the database
+            await context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            // Handle database-related errors
+            return StatusCode(500, $"Internal Server Error: {ex.Message}");
+        }
+
+        // Return the created benefactor with a 201 Created status
+        return CreatedAtAction(nameof(GetBenefactors), new { id = benefactorInfo.Id }, benefactorInfo);
     }
+
     //PUT /api/Benefactors
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutBenefactors(int id, Benefactor benefactor) {
-        if(benefactor.Id != id)
+    public async Task<IActionResult> PutBenefactors(int id, Benefactor benefactor)
+    {
+        if (benefactor.Id != id)
             return BadRequest();
 
         context.Entry(benefactor).State = EntityState.Modified;
@@ -77,23 +103,27 @@ public class BenefactorController : ControllerBase {
         }
         catch (System.Exception)
         {
-            if(!BenefactorExists(id)){
+            if (!BenefactorExists(id))
+            {
                 return NotFound();
-            }else{
+            }
+            else
+            {
                 throw;
             }
         }
-         return NoContent();
+        return NoContent();
     }
 
     //DELETE /api/Benefactor
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteBenefactor(int id){
-        if(context.Benefactors == null)
+    public async Task<IActionResult> DeleteBenefactor(int id)
+    {
+        if (context.Benefactors == null)
             return NotFound();
 
         var benefactor = await context.Benefactors.FindAsync(id);
-        if(benefactor == null)
+        if (benefactor == null)
             return NotFound();
 
         context.Benefactors.Remove(benefactor);
@@ -101,7 +131,8 @@ public class BenefactorController : ControllerBase {
 
         return NoContent();
     }
-    private bool BenefactorExists(int id){
-        return (context.Benefactors?.Any(i=>i.Id == id)).GetValueOrDefault();
+    private bool BenefactorExists(int id)
+    {
+        return (context.Benefactors?.Any(i => i.Id == id)).GetValueOrDefault();
     }
 }
