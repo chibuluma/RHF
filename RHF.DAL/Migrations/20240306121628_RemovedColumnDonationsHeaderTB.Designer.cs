@@ -11,8 +11,8 @@ using RHF.DAL;
 namespace RHF.DAL.Migrations
 {
     [DbContext(typeof(RhfDbContext))]
-    [Migration("20240228144202_AddedProjectTasksTable")]
-    partial class AddedProjectTasksTable
+    [Migration("20240306121628_RemovedColumnDonationsHeaderTB")]
+    partial class RemovedColumnDonationsHeaderTB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -278,9 +278,14 @@ namespace RHF.DAL.Migrations
                     b.Property<DateTime>("DatePaid")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int>("FinancialYearId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BenefactorId");
+
+                    b.HasIndex("FinancialYearId");
 
                     b.HasIndex(new[] { "Id" }, "IX_BenefactorContributions_Id")
                         .IsUnique();
@@ -334,15 +339,87 @@ namespace RHF.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<double>("TotalAmount")
-                        .HasColumnType("double");
-
                     b.HasKey("Id");
 
                     b.HasIndex(new[] { "Id" }, "IX_DonationsHeader_Id")
                         .IsUnique();
 
                     b.ToTable("DonationsHeader", (string)null);
+                });
+
+            modelBuilder.Entity("RHF.Shared.FinancialYear", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsCurrent")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FinancialYear");
+                });
+
+            modelBuilder.Entity("RHF.Shared.ProjectTasks", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Caption")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("DateEnd")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateStart")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("FillStyle")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ForeColor")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsDone")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("NotBeDraggable")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex(new[] { "ID" }, "IX_ProjectTasks_Id")
+                        .IsUnique();
+
+                    b.ToTable("ProjectTasks", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -403,7 +480,14 @@ namespace RHF.DAL.Migrations
                         .HasForeignKey("BenefactorId")
                         .IsRequired();
 
+                    b.HasOne("RHF.Shared.FinancialYear", "FinancialYear")
+                        .WithMany("BenefactorContributions")
+                        .HasForeignKey("FinancialYearId")
+                        .IsRequired();
+
                     b.Navigation("Benefactor");
+
+                    b.Navigation("FinancialYear");
                 });
 
             modelBuilder.Entity("RHF.Shared.DonationsDetail", b =>
@@ -424,6 +508,11 @@ namespace RHF.DAL.Migrations
             modelBuilder.Entity("RHF.Shared.DonationsHeader", b =>
                 {
                     b.Navigation("DonationsDetails");
+                });
+
+            modelBuilder.Entity("RHF.Shared.FinancialYear", b =>
+                {
+                    b.Navigation("BenefactorContributions");
                 });
 #pragma warning restore 612, 618
         }

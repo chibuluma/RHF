@@ -176,7 +176,7 @@
 		parameters.Add(x => x.ButtonText, "Update");
 
 		var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.Large };
-        var dialog = DialogService.Show<EventViewDialog>("Event", parameters, options);
+        var dialog = DialogService.Show<EventViewDialog>("Donation", parameters, options);
         var result = await dialog.Result;
 		
 		if(!result.Cancelled)

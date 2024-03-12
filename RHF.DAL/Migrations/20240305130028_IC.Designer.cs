@@ -11,7 +11,7 @@ using RHF.DAL;
 namespace RHF.DAL.Migrations
 {
     [DbContext(typeof(RhfDbContext))]
-    [Migration("20240215081548_IC")]
+    [Migration("20240305130028_IC")]
     partial class IC
     {
         /// <inheritdoc />
@@ -343,6 +343,64 @@ namespace RHF.DAL.Migrations
                         .IsUnique();
 
                     b.ToTable("DonationsHeader", (string)null);
+                });
+
+            modelBuilder.Entity("RHF.Shared.ProjectTasks", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Caption")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("DateEnd")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateStart")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("FillStyle")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ForeColor")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsDone")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("NotBeDraggable")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex(new[] { "ID" }, "IX_ProjectTasks_Id")
+                        .IsUnique();
+
+                    b.ToTable("ProjectTasks", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

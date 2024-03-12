@@ -62,6 +62,8 @@ public class BenefactorContributionsController : ControllerBase
         try
         {
             // Add benefactor contribution to the context
+            benefactorContributionInfo.FinancialYearId = GetCurrentFinancialYear()
+            .GetValueOrDefault(); // sets the current financial year to contribution
             context.Add(benefactorContributionInfo);
 
             // Save changes to the database
@@ -75,6 +77,14 @@ public class BenefactorContributionsController : ControllerBase
             // Handle database-related errors
             return StatusCode(500, $"Internal Server Error: {ex.Message}");
         }
+    }
+
+    private int? GetCurrentFinancialYear()
+    {
+        var year = context.FinancialYear.Where(s=>s.IsCurrent)
+            .FirstOrDefault()?.Id;
+
+        return year;
     }
 
     //PUT /api/Benefactors
@@ -106,13 +116,10 @@ public class BenefactorContributionsController : ControllerBase
 
     //DELETE /api/Benefactor
     [HttpDelete("{id}")]
-    [Authorize(Roles = "CFO")]
     public async Task<IActionResult> DeleteBenefactorContribution(int id)
     {
-        if (context.BenefactorContributions == null)
-            return NotFound();
-
         var benefactor = await context.BenefactorContributions.FindAsync(id);
+        
         if (benefactor == null)
             return NotFound();
 

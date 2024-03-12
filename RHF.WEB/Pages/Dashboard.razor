@@ -1,4 +1,9 @@
 @page "/dashboard"
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject HttpClient Http
+@inject ISnackbar SnackbarService
+@attribute [Authorize]
+
 <MudGrid>
     <MudItem xs="12">
         <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
@@ -9,7 +14,7 @@
         <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
             <MudStack>
                 <MudText Align="Align.Center" Typo="Typo.caption">Total Benefactors</MudText>
-                <MudText Align="Align.Center" Typo="Typo.h4">15</MudText>
+                <MudText Align="Align.Center" Typo="Typo.h4">@metric.TotalBenefactors</MudText>
             </MudStack>
         </MudPaper>
     </MudItem>
@@ -17,7 +22,7 @@
         <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
             <MudStack>
                 <MudText Align="Align.Center" Typo="Typo.caption">Total RHF Contributions</MudText>
-                <MudText Align="Align.Center" Typo="Typo.h4">K23, 500</MudText>
+                <MudText Align="Align.Center" Typo="Typo.h4">@metric.TotalContributions</MudText>
             </MudStack>
         </MudPaper>
     </MudItem>
@@ -25,7 +30,7 @@
         <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
             <MudStack>
                 <MudText Align="Align.Center" Typo="Typo.caption">My Total Contributions</MudText>
-                <MudText Align="Align.Center" Typo="Typo.h4">K2, 000</MudText>
+                <MudText Align="Align.Center" Typo="Typo.h4">@metric.MyTotalContributions</MudText>
             </MudStack>
         </MudPaper>
     </MudItem>
@@ -33,14 +38,14 @@
         <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
             <MudStack>
                 <MudText Align="Align.Center" Typo="Typo.caption">Next Donation</MudText>
-                <MudText Align="Align.Center" Typo="Typo.h4">April, 2024</MudText>
+                <MudText Align="Align.Center" Typo="Typo.h4">@metric.NextProjectSchedule.ToString("MMM dd yyyy")</MudText>
             </MudStack>
         </MudPaper>
     </MudItem>
     <MudItem xs="6">
         <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">
             <MudStack>
-                <MudChart ChartType="ChartType.Pie" InputData="@data" @bind-SelectedIndex="Index" InputLabels="@labels" Width="300px" Height="300px" />
+                <MudChart ChartType="ChartType.Pie" InputData="@metric.ContributedVsRaised" @bind-SelectedIndex="Index" InputLabels="@labels" Width="300px" Height="300px" />
             </MudStack>
         </MudPaper>
     </MudItem>
@@ -54,13 +59,16 @@
 </MudGrid>
 
 @code {
-  private int Index = -1; //default value cannot be 0 -> first selectedindex is 0.
+    private int Index = -1; //default value cannot be 0 -> first selectedindex is 0.
     int dataSize = 4;
-    double[] data = { 77, 25, 20, 5 };
-    string[] labels = { "Uranium", "Plutonium", "Thorium", "Caesium", "Technetium", "Promethium" };
-
+    double[] data = { 77, 25 };
+    string[] labels = { "Raised", "Distributed" };
+    int total_benefactors = 0;
+    double total_contributions_made = 0.0;
+    double my_total_contibutions_made = 0.0;
+    DateTime next_project_schedule = DateTime.Now;
     Random random = new Random();
-
+    Metrics metric = new Metrics();
     void RandomizeData()
     {
         var new_data = new double[dataSize];
@@ -69,13 +77,18 @@
         data = new_data;
         StateHasChanged();
     }
+    private System.Security.Claims.ClaimsPrincipal User;
+    protected async override Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        User = authState.User;
 
+        metric = await Http.GetFromJsonAsync<Metrics>($"api/Metrics/GetMetrics/{User.Identity.Name}");
+    }
 
     public List<ChartSeries> Series = new List<ChartSeries>()
     {
-        new ChartSeries() { Name = "United States", Data = new double[] { 40, 20, 25, 27, 46, 60, 48, 80, 15 } },
-        new ChartSeries() { Name = "Germany", Data = new double[] { 19, 24, 35, 13, 28, 15, 13, 16, 31 } },
-        new ChartSeries() { Name = "Sweden", Data = new double[] { 8, 6, 11, 13, 4, 16, 10, 16, 18 } },
+        new ChartSeries() { Name = "Contributions", Data = new double[] { 40, 20, 25, 27, 46, 60, 48, 80, 15 } },
     };
-    public string[] XAxisLabels = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep" };
+    public string[] XAxisLabels = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 }

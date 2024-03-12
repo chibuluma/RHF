@@ -11,8 +11,8 @@ using RHF.DAL;
 namespace RHF.DAL.Migrations
 {
     [DbContext(typeof(RhfDbContext))]
-    [Migration("20240228145528_AddedProjectTasksTables")]
-    partial class AddedProjectTasksTables
+    [Migration("20240306122855_AddedProjectIdColumn")]
+    partial class AddedProjectIdColumn
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -278,9 +278,14 @@ namespace RHF.DAL.Migrations
                     b.Property<DateTime>("DatePaid")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int>("FinancialYearId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BenefactorId");
+
+                    b.HasIndex("FinancialYearId");
 
                     b.HasIndex(new[] { "Id" }, "IX_BenefactorContributions_Id")
                         .IsUnique();
@@ -330,12 +335,12 @@ namespace RHF.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Recipient")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<double>("TotalAmount")
-                        .HasColumnType("double");
 
                     b.HasKey("Id");
 
@@ -343,6 +348,23 @@ namespace RHF.DAL.Migrations
                         .IsUnique();
 
                     b.ToTable("DonationsHeader", (string)null);
+                });
+
+            modelBuilder.Entity("RHF.Shared.FinancialYear", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsCurrent")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FinancialYear");
                 });
 
             modelBuilder.Entity("RHF.Shared.ProjectTasks", b =>
@@ -364,6 +386,7 @@ namespace RHF.DAL.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Comment")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("CreatedBy")
@@ -381,6 +404,9 @@ namespace RHF.DAL.Migrations
 
                     b.Property<string>("ForeColor")
                         .HasColumnType("longtext");
+
+                    b.Property<bool>("IsDone")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Key")
                         .HasColumnType("longtext");
@@ -457,7 +483,14 @@ namespace RHF.DAL.Migrations
                         .HasForeignKey("BenefactorId")
                         .IsRequired();
 
+                    b.HasOne("RHF.Shared.FinancialYear", "FinancialYear")
+                        .WithMany("BenefactorContributions")
+                        .HasForeignKey("FinancialYearId")
+                        .IsRequired();
+
                     b.Navigation("Benefactor");
+
+                    b.Navigation("FinancialYear");
                 });
 
             modelBuilder.Entity("RHF.Shared.DonationsDetail", b =>
@@ -478,6 +511,11 @@ namespace RHF.DAL.Migrations
             modelBuilder.Entity("RHF.Shared.DonationsHeader", b =>
                 {
                     b.Navigation("DonationsDetails");
+                });
+
+            modelBuilder.Entity("RHF.Shared.FinancialYear", b =>
+                {
+                    b.Navigation("BenefactorContributions");
                 });
 #pragma warning restore 612, 618
         }

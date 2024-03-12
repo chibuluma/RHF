@@ -6,7 +6,6 @@ using RHF.Shared;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(Roles = "CFO")]
 public class DonationsHeaderController : ControllerBase {
     private readonly RhfDbContext context;
 
@@ -18,10 +17,66 @@ public class DonationsHeaderController : ControllerBase {
     //GET /api/donations
     [HttpGet]
     public async Task<ActionResult<IEnumerable<DonationsHeader>>> Getdonation(){
-        if(context.DonationsHeaders == null)
+        try
+        {
+            if(context.DonationsHeaders == null)
+            
             return NotFound();
 
-        return await context.DonationsHeaders.ToListAsync();
+        return await context.DonationsHeaders.ToListAsync(); 
+        }
+        catch (System.Exception)
+        {
+            
+            throw;
+        }
+
+    }
+
+        //GET /api/donations
+    [HttpGet]
+    [Route("GetDonationHeader")]
+    public async Task<IEnumerable<DonationsHeaderDTO>> GetDonation(){
+        try
+        {
+            var result = await PerformMapping(await context.DonationsHeaders.ToListAsync());
+            
+            return result; 
+
+        }
+        catch (System.Exception)
+        {
+            return new List<DonationsHeaderDTO>();
+        }
+
+    }
+
+    private async Task<IList<DonationsHeaderDTO>> PerformMapping(IEnumerable<DonationsHeader> donations){
+        var beneficiaryDto = new List<DonationsHeaderDTO>();
+
+        foreach (var donation in donations)
+        {
+            beneficiaryDto.Add(new DonationsHeaderDTO(){
+                Id = donation.Id,
+                Period = donation.Period,
+                Recipient = donation.Recipient,
+                TotalAmountSpent = await CalculatTotal(donation.Id)
+            });
+        }
+        return beneficiaryDto;
+    }
+
+    private async Task<double> CalculatTotal(int id)
+    {
+        var total = 0.0;
+
+        var details = await context.DonationsDetails
+            .Where(s=>s.DonationsHeaderId == id).ToListAsync();
+
+        if(details != null)
+           total =  details.Sum(s=>s.Total);
+        
+        return total;
     }
 
     //GET /api/donations/5
@@ -38,14 +93,6 @@ public class DonationsHeaderController : ControllerBase {
         return donation;
     }
 
-    //POST /api/donations
-    [HttpPost]
-    public async Task<ActionResult<DonationsHeader>> PostDonation(DonationsHeader donation){
-        context.Add(donation);
-        await context.SaveChangesAsync();
-
-        return CreatedAtAction(nameof(Getdonation), new {id = donation.Id}, donation);
-    }
     //PUT /api/donations
     [HttpPut("{id}")]
     public async Task<IActionResult> PutDonationHeaderDetailsContributions(int id, DonationsHeader donation) {

@@ -1,0 +1,198 @@
+@page "/financial-year"
+
+@inject HttpClient Http
+@inject ISnackbar SnackbarService
+@inject AuthenticationStateProvider GetAuthenticationStateAsync
+@inject NavigationManager UriHelper
+@attribute [Authorize(Roles = "CFO")]
+@inject ISnackbar SnackbarService
+@using System.ComponentModel.DataAnnotations
+
+
+<MudItem xs="12">
+    <MudCard>
+        <MudCardContent>
+            <MudText Typo="Typo.h3" Align="Align.Center">
+                Financial Year Planner
+            </MudText>
+        </MudCardContent>
+    </MudCard>
+</MudItem>
+<br />
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <MudGrid>
+
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="Financial Year" HelperText="Max. 4 characters" @bind-Value="model.Year"
+                        For="@(() => model.Year)" InputType="InputType.Number" />
+                    <MudSwitch Label="Is it Current" Class="mt-3" @bind-Value="model.IsCurrent"
+                        />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary"
+                        Class="ml-auto">Add</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" sm="5">
+            <MudPaper Class="pa-4 mud-height-full">
+                <MudText Typo="Typo.subtitle2">Financial Year Summary</MudText>
+                @if (available_financial_years.Count > 0)
+                {
+                    <div>
+                        <table class="table">
+                    @foreach (var year in available_financial_years)
+                    {
+                                <tr>
+                                    <td>@year.Year</td>
+                                    <td>
+                                        @if(year.IsCurrent)
+                                            { <MudIconButton Icon="@Icons.Material.Filled.LockOpen" Color="Color.Success" OnClick="(args) => SetFinancialYear(year, false)"/>}
+                                        else{ <MudIconButton Icon="@Icons.Material.Filled.Lock" Color="Color.Primary" OnClick="(args) => SetFinancialYear(year, true)"/> }
+                                    </td>
+                                </tr>
+
+                    }
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <MudText Color="@Color.Success">
+                        <MudText Typo="Typo.caption">No Financial Year added</MudText>
+                    </MudText>
+                }
+            </MudPaper>
+        </MudItem>
+
+ </MudGrid>
+ </EditForm>
+
+@code {
+    FinancialYearForm model = new FinancialYearForm();
+    bool success;
+    List<RHF.Shared.FinancialYear> available_financial_years = new();
+    private System.Security.Claims.ClaimsPrincipal User;
+    private async void SetFinancialYear(RHF.Shared.FinancialYear year, bool result){
+        if(year==null)
+            return;
+
+        if(year.Id >0 ) {
+            if(result){
+                var financialYear = new RHF.Shared.FinancialYear();
+                financialYear.Id = year.Id;
+                financialYear.Year = year.Year;
+                financialYear.IsCurrent = result;
+
+                var req = new HttpRequestMessage();
+                req.Content = JsonContent.Create(financialYear);
+                req.Method = HttpMethod.Put;
+                req.RequestUri = new Uri($"api/FinancialYear/UpdateFinancialYear/{year.Id}", UriKind.Relative);
+
+                var response = await Http.SendAsync(req);
+                
+                message(response);
+            }else {
+                var financialYear = new RHF.Shared.FinancialYear();
+                financialYear.Id = year.Id;
+                financialYear.Year = year.Year;
+                financialYear.IsCurrent = result;
+
+                var req = new HttpRequestMessage();
+                req.Content = JsonContent.Create(financialYear);
+                req.Method = HttpMethod.Put;
+                req.RequestUri = new Uri($"api/FinancialYear/UpdateFinancialYear/{year.Id}", UriKind.Relative);
+
+                var response = await Http.SendAsync(req);
+                
+                message(response);
+            }
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
+        User = authState.User;
+
+        available_financial_years = await
+            Http.GetFromJsonAsync<List<RHF.Shared.FinancialYear>>("api/FinancialYear/GetFinancialYears");
+    }
+    public class FinancialYearForm
+    {
+        [Required]
+        public int Year { get; set; }
+        public bool IsCurrent { get; set; }
+    }
+
+    private async void OnValidSubmit(EditContext context)
+    {
+        success = true;
+        if (model.Year > 0)
+        {
+            var financialYear = new RHF.Shared.FinancialYear();
+            financialYear.Year = model.Year;
+            financialYear.IsCurrent = model.IsCurrent;
+
+            var req = new HttpRequestMessage();
+            req.Content = JsonContent.Create(financialYear);
+            req.Method = HttpMethod.Post;
+            req.RequestUri = new Uri($"api/FinancialYear/PostFinancialYear", UriKind.Relative);
+
+            var response = await Http.SendAsync(req);
+
+            if (response.IsSuccessStatusCode)
+            {
+                
+                SnackbarService.Add(
+                    @<div>
+                        <p>Added successfully</p>
+                    </div>, severity: Severity.Success,
+                config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+                );
+                available_financial_years = await
+                    Http.GetFromJsonAsync<List<RHF.Shared.FinancialYear>>("api/FinancialYear/GetFinancialYears");
+                StateHasChanged();
+            }
+            else
+            {
+                var msg = await response.Content.ReadAsStringAsync();
+                SnackbarService.Add(
+                    @<div>
+                        <p>@response</p>
+                    </div>, severity: Severity.Error,
+                config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+                );
+            }
+        }
+    }
+
+    public async void message(HttpResponseMessage response){
+            if (response.IsSuccessStatusCode)
+            {
+                
+                SnackbarService.Add(
+                    @<div>
+                        <p>Updated successfully</p>
+                    </div>, severity: Severity.Success,
+                config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+                );
+                available_financial_years = await
+                    Http.GetFromJsonAsync<List<RHF.Shared.FinancialYear>>("api/FinancialYear/GetFinancialYears");
+                
+                StateHasChanged();
+            }
+            else
+            {
+                var msg = await response.Content.ReadAsStringAsync();
+                SnackbarService.Add(
+                    @<div>
+                        <p>@response</p>
+                    </div>, severity: Severity.Error,
+                config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+                );
+            }
+    }
+}

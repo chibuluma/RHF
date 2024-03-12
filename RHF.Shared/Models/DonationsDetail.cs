@@ -10,8 +10,8 @@ public partial class DonationsDetail
 
     public int Qty { get; set; }
 
-    public double? UnitCost { get; set; }
+    public double UnitCost { get; set; }
 
-    public double? Total { get; set; }
-    public virtual DonationsHeader DonationsHeader { get; set; } = null!;
+    public double Total { get; set; }
+    public virtual DonationsHeader DonationsHeader { get; set; }
 }

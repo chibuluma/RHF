@@ -66,6 +66,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQmVuZWZhY3RvckluZm8ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/BeneficiaryInfo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQmVuZWZpY2lhcnlJbmZvLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Dashboard.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvYXJkLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -96,6 +100,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Dialogs/ViewContributorDialog.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGlhbG9ncy9WaWV3Q29udHJpYnV0b3JEaWFsb2cucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Expenses.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXhwZW5zZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/FinancialYear.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRmluYW5jaWFsWWVhci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/mathews/Projects/RHFProject/RHF.WEB/Pages/Home.razor]

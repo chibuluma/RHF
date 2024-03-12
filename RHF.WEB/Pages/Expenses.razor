@@ -1,0 +1,185 @@
+@page "/expenses"
+@inject HttpClient Http
+@inject ISnackbar SnackbarService
+@inject AuthenticationStateProvider GetAuthenticationStateAsync
+@inject NavigationManager UriHelper
+@attribute [Authorize(Roles = "CFO")]
+@inject ISnackbar SnackbarService
+@using System.ComponentModel.DataAnnotations
+
+<MudItem xs="12">
+    <MudCard>
+        <MudCardContent>
+            <MudText Typo="Typo.h4" Align="Align.Center">
+                Expenses for (@selected_expense)
+            </MudText>
+        </MudCardContent>
+    </MudCard>
+</MudItem>
+<br />
+<MudGrid>
+    <MudItem xs="12" sm="7">
+        <MudPaper Class="pa-4">
+            <MudSelect Value="headerId" Label="Select beneficiary" HelperText="Recipient"
+                Placeholder="Please select project" AdornmentIcon="@Icons.Material.Filled.House"
+                ValueChanged="@((string selectecValue) => PopulateExpenses(selectecValue))"
+                AdornmentColor="Color.Primary">
+                @foreach (var project in available_projects)
+                {
+                    <MudSelectItem Value="@($"{project.Id}-{project.Recipient}")">@project.Recipient</MudSelectItem>
+                }
+            </MudSelect>
+
+            @if (!string.IsNullOrEmpty(headerId))
+            {
+                <MudForm Model="@model" @ref="@form" ValidationDelay="0">
+                    <MudTextField @bind-Value="model.Description" For="@(() => model.Description)" Immediate="true"
+                        Label="Description" />
+
+                    <MudTextField @bind-Value="model.Qty" For="@(() => model.Qty)" Immediate="true" Label="Quantity" TextChanged="CalculateTotal" />
+
+                    <MudTextField @bind-Value="model.UnitCost" For="@(() => model.UnitCost)" Immediate="true"
+                        Label="Unit Cost" TextChanged="CalculateTotal" />
+
+                    <MudTextField Disabled @bind-Value="model.Total"  For="@(() => model.Total)" Immediate="true" Label="Total" />
+                </MudForm>
+
+            }
+        </MudPaper>
+        <MudPaper Class="pa-4 mt-4">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" DisableElevation="true"
+                OnClick="@(()=>SubmitExpenseDetails())">Submit</MudButton>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="5">
+        <MudPaper Class="pa-4 mud-height-full">
+            @foreach (var expense in added_expenses)
+            {
+                <MudCard>
+                    <MudGrid>
+                        <MudItem xs="6">
+                        
+                                <MudText Color="@Color.Info">Name: @expense.Description</MudText>
+                                <MudText Color="@Color.Primary">Quantity: @expense.Qty</MudText>
+                                <MudText Color="@Color.Surface">UOM: @expense.UnitCost</MudText>
+                                <MudText Color="@Color.Warning">Total: @expense.Total</MudText>
+                        
+                        </MudItem>
+                        <MudItem xs="6">
+                            <MudIconButton OnClick="((ags)=> RemoveDonationItem(expense.Id))" Icon="@Icons.Material.Filled.Delete" Color="@Color.Error"  align-end/>
+                        </MudItem>
+                    </MudGrid>
+                </MudCard>
+            }
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+@code {
+    bool success;
+    string[] errors = { };
+    List<DonationsHeader> available_projects = new();
+    List<DonationsDetail> added_expenses = new();
+    MudForm form;
+    private string headerId = string.Empty;
+    private string selected_expense = string.Empty;
+    DonationsDetail model = new DonationsDetail();
+    protected async override Task OnInitializedAsync()
+    {
+        available_projects = await
+            Http.GetFromJsonAsync<List<DonationsHeader>>("api/DonationsHeader");
+    }
+    private void CalculateTotal(){
+        model.Total = model.Qty * model.UnitCost;
+    }
+
+    private async Task RemoveDonationItem(int id){
+        try{
+            var response = await Http.DeleteAsync($"api/DonationsHeader/{id}");
+
+            if(response.IsSuccessStatusCode)
+                SnackbarService.Add
+                    (
+                        @<div>
+                            <p>Reomved successfully</p>
+                        </div>, severity: Severity.Success,
+                        config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+                    );
+
+                added_expenses = await Http.GetFromJsonAsync<List<DonationsDetail>>($"api/DonationsDetail/GetDonationsDetailsByHeaderId/{headerId}");
+                StateHasChanged();
+        }catch(Exception e){
+            SnackbarService.Add
+                (
+                    @<div>
+                        <p>Error occured</p>
+                    </div>, severity: Severity.Error,
+                    config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+                );
+        }
+
+    }
+    private async void SubmitExpenseDetails()
+    {
+            int.TryParse(headerId, out int _headerId);
+
+            var donationsDetails = new RHF.Shared.DonationsDetailDTO();
+            donationsDetails.Qty = model.Qty;
+            donationsDetails.Description = model.Description;
+            donationsDetails.UnitCost = model.UnitCost;
+            donationsDetails.Total = model.Total;
+            donationsDetails.DonationsHeaderId = _headerId;
+
+            if(_headerId == 0)
+                return;
+
+            var req = new HttpRequestMessage();
+            req.Content = JsonContent.Create(donationsDetails);
+            req.Method = HttpMethod.Post;
+            req.RequestUri = new Uri($"api/DonationsDetail/PostDonationDetailsContribution", UriKind.Relative);
+
+            var response = await Http.SendAsync(req);
+
+            if(response.IsSuccessStatusCode){
+                SnackbarService.Add
+                (
+                    @<div>
+                        <p>Added successfully</p>
+                    </div>, severity: Severity.Success,
+                    config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+                );
+
+                added_expenses = await Http.GetFromJsonAsync<List<DonationsDetail>>($"api/DonationsDetail/GetDonationsDetailsByHeaderId/{headerId}");
+                StateHasChanged();
+            }else{
+                SnackbarService.Add
+                (
+                    @<div>
+                        <p>Failed with error: @response.Content.ReadAsStringAsync().GetAwaiter().GetResult()</p>
+                    </div>, severity: Severity.Error,
+                    config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+                );
+            }
+    }
+
+    async Task PopulateExpenses(string s){
+        try{
+            var obj = s.Split("-");
+            selected_expense = obj[1];
+            headerId = s[0].ToString();
+            int.TryParse(headerId, out int _headerId);
+            added_expenses = await Http.GetFromJsonAsync<List<DonationsDetail>>($"api/DonationsDetail/GetDonationsDetailsByHeaderId/{_headerId}");
+            StateHasChanged();
+        }catch(Exception e){
+                SnackbarService.Add
+                (
+                    @<div>
+                        <p>Failed with error: @e</p>
+                    </div>, severity: Severity.Error,
+                    config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+                );
+        }
+
+    }
+
+}

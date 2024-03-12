@@ -7,11 +7,14 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace RHF.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedProjectTasksTables : Migration
+    public partial class IC : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySQL:Charset", "utf8mb4");
+
             migrationBuilder.CreateTable(
                 name: "ProjectTasks",
                 columns: table => new
@@ -24,12 +27,13 @@ namespace RHF.DAL.Migrations
                     Color = table.Column<string>(type: "longtext", nullable: false),
                     ForeColor = table.Column<string>(type: "longtext", nullable: true),
                     FillStyle = table.Column<int>(type: "int", nullable: false),
-                    Comment = table.Column<string>(type: "longtext", nullable: true),
+                    Comment = table.Column<string>(type: "longtext", nullable: false),
                     DateStart = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     DateEnd = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     NotBeDraggable = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<string>(type: "longtext", nullable: false)
+                    CreatedBy = table.Column<string>(type: "longtext", nullable: false),
+                    IsDone = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {

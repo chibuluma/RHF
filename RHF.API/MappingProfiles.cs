@@ -8,6 +8,6 @@ public class MappingProfiles : Profile {
         CreateMap<BenefactorDTO, Benefactor>();
         CreateMap<BenefactorContributionsDTO, BenefactorContribution>();
         CreateMap<DonationsDetailDTO, DonationsDetail>();
-        CreateMap<DonationsHeaderDTO, DonationsHeader>();
+        CreateMap<RHF.Shared.DonationsHeaderDTO, DonationsHeader>();
     }
 }
