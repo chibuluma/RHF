@@ -24,10 +24,12 @@ builder.Services.AddControllers()
 
 // Add services to the container.
 #pragma warning disable CS8604 // Possible null reference argument.
-builder.Services.AddDbContext<RhfDbContext>(options =>
-    options.UseMySQL(builder.Configuration.GetConnectionString("RHFContext")));
+// builder.Services.AddDbContext<RhfDbContext>(options =>
+//     options.UseMySQL(builder.Configuration.GetConnectionString("RHFContext")));
 #pragma warning restore CS8604 // Possible null reference argument.
 
+builder.Services.AddDbContext<RhfDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("RHFContext")));
 
 // builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 

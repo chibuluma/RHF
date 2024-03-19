@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RHF.WEB")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a7e031011ec1842c5efd0cde787e3d072335f6e8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+36689dc5c48d2bca871a313f86ac84be9286c9a2")]
 [assembly: System.Reflection.AssemblyProductAttribute("RHF.WEB")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RHF.WEB")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

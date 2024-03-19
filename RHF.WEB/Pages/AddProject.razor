@@ -75,11 +75,19 @@
 
 	protected async override Task OnInitializedAsync()
 	{
-		PlannedProjects = await Http?.GetFromJsonAsync<List<ProjectTasks>>($"/api/ProjectsManager/GetProjects");
+        try
+        {
+            PlannedProjects = await Http?.GetFromJsonAsync<List<ProjectTasks>>("/api/ProjectsManager/GetProjects");
 
-		if(PlannedProjects != null){
-			TasksList = TaskProjection(PlannedProjects);
-		}
+            if (PlannedProjects != null)
+            {
+                TasksList = TaskProjection(PlannedProjects);
+            }
+        }
+        catch (Exception ex)
+        {
+            SnackbarService.Add("Error loading projects: " + ex.Message);
+        }
 	}
 
 	public List<Tasks> TaskProjection(List<ProjectTasks> tasks){

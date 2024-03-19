@@ -20,7 +20,7 @@
                 <MudNavLink Href="/benefactorInfo" Icon="@Icons.Material.Filled.TableRows" IconColor="Color.Info">View
                     Benefactors</MudNavLink>
             </MudNavGroup>
-            <AuthorizeView Roles="CFO">
+            <AuthorizeView>
                 <Authorized>
                     <MudNavGroup Title="Beneficiary" Icon="@Icons.Material.Filled.Folder" Expanded="true">
                         <MudNavLink Href="/expenses" Icon="@Icons.Material.Filled.AddShoppingCart"
@@ -35,13 +35,13 @@
                     </MudNavGroup>
                 </Authorized>
             </AuthorizeView>
-            <AuthorizeView Roles="Project Manager">
+            <AuthorizeView>
                 <Authorized>
                     <MudDivider Class="my-2" />
                     <MudNavGroup Title="Projects" Icon="@Icons.Material.Filled.Settings" Expanded="false">
-                        <MudNavLink Href="/add-projects" Icon="@Icons.Material.Filled.House" IconColor="Color.Info">Add
+                        <MudNavLink Href="/add-projects" Disabled="IsProjectManager" Icon="@Icons.Material.Filled.House" IconColor="Color.Info">Add
                             Projects</MudNavLink>
-                        <MudNavLink Href="/view-projects" Icon="@Icons.Material.Filled.FolderShared"
+                        <MudNavLink Href="/beneficiaryInfo" Icon="@Icons.Material.Filled.FolderShared"
                             IconColor="Color.Tertiary">View Projects</MudNavLink>
                     </MudNavGroup>
                 </Authorized>
@@ -65,11 +65,20 @@
 
 
 @code {
+    private bool IsCFO => !User?.IsInRole("CFO") ?? true;
+
+    private System.Security.Claims.ClaimsPrincipal User;
     public bool showNavBar { get; set; } = true;
     private bool collapseNavMenu = true;
+    private bool IsProjectManager => !User?.IsInRole("Project Manager") ?? true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        User = authState.User;
 
+    }
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;

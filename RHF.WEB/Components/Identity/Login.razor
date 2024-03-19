@@ -151,7 +151,10 @@ button.btn-primary:hover {
             var user = await IsAccountConfirmed(email);
             
             if(!user){
-                OpenDialog(disableBackdropClick);
+                await Acct.LogoutAsync();  
+                errors = true; 
+                errorList = [$"The account with Email:{email} has not yet being confirmed"];  
+                //OpenDialog(disableBackdropClick);
             }
             else
             {
@@ -183,14 +186,8 @@ button.btn-primary:hover {
         var result = await dialog.Result;
 
         if(!result.Canceled){
-            SnackbarService.Add
-            (
-                @<div>
-                    <ul>
-                        <li>Note that you will access the portal in Guest mode only</li>
-                    </ul>
-                </div>, severity: Severity.Info
-            );
+                await Acct.LogoutAsync();     
+
         }else{
                 await Acct.LogoutAsync();     
         }
@@ -226,7 +223,7 @@ button.btn-primary:hover {
             (
                 @<div>
                     <ul>
-                        <li>Account not yet linked</li>
+                        <li>Account profile creation not yet completed</li>
                     </ul>
                 </div>, severity: Severity.Warning
             );

@@ -17,15 +17,16 @@ public partial class RhfDbContext : IdentityDbContext
     {
     }
     public virtual DbSet<ProjectTasks> ProjectTasks { get; set; }
-    public virtual DbSet<FinancialYear> FinancialYear { get; set; }
     public virtual DbSet<Benefactor> Benefactors { get; set; }
     public virtual DbSet<BenefactorContribution> BenefactorContributions { get; set; }
     public virtual DbSet<DonationsDetail> DonationsDetails { get; set; }
     public virtual DbSet<DonationsHeader> DonationsHeaders { get; set; }
+    public virtual DbSet<FinancialYear> FinancialYear { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySQL("Server=localhost;Database=RHF_db;Uid=root;Pwd=mvemjsunp;");
-
+    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //     => optionsBuilder.UseMySQL("Server=localhost;Database=RHF_db;Uid=root;Pwd=mvemjsunp;");
+     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+         => optionsBuilder.UseSqlite("Data Source=../RHF_db.db");
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ProjectTasks>(entity =>
@@ -49,6 +50,11 @@ public partial class RhfDbContext : IdentityDbContext
         modelBuilder.Entity<BenefactorContribution>(entity =>
         {
             entity.HasIndex(e => e.Id, "IX_BenefactorContributions_Id").IsUnique();
+
+            entity.HasOne(d => d.FinancialYear)
+                .WithMany(p => p.BenefactorContributions)
+                .HasForeignKey(d => d.FinancialYearId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             entity.HasOne(d => d.Benefactor)
                 .WithMany(p => p.BenefactorContributions)

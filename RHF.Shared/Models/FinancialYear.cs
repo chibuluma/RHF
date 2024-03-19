@@ -8,5 +8,6 @@ public class FinancialYear {
     public int Id { get; set; }
     public int Year { get; set; }
     public bool IsCurrent { get; set; }
+    public virtual ICollection<BenefactorContribution> BenefactorContributions { get; set; } = new List<BenefactorContribution>();
 
 }

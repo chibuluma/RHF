@@ -48,7 +48,7 @@
         </MudPaper>
         <MudPaper Class="pa-4 mt-4">
             <MudButton Variant="Variant.Filled" Color="Color.Primary" DisableElevation="true"
-                OnClick="@(()=>SubmitExpenseDetails())">Submit</MudButton>
+                OnClick="@(()=>SubmitExpenseDetails())" Disabled="IsCFO">Add</MudButton>
         </MudPaper>
     </MudItem>
     <MudItem xs="12" sm="5">
@@ -66,7 +66,7 @@
                         
                         </MudItem>
                         <MudItem xs="6">
-                            <MudIconButton OnClick="((ags)=> RemoveDonationItem(expense.Id))" Icon="@Icons.Material.Filled.Delete" Color="@Color.Error"  align-end/>
+                            <MudIconButton OnClick="((ags)=> RemoveDonationItem(expense.Id))" Icon="@Icons.Material.Filled.Delete" Color="@Color.Error"  align-end Disabled="IsCFO"/>
                         </MudItem>
                     </MudGrid>
                 </MudCard>
@@ -81,13 +81,32 @@
     List<DonationsHeader> available_projects = new();
     List<DonationsDetail> added_expenses = new();
     MudForm form;
+
+    private bool IsCFO => !User?.IsInRole("CFO") ?? true;
+
     private string headerId = string.Empty;
     private string selected_expense = string.Empty;
     DonationsDetail model = new DonationsDetail();
+    private System.Security.Claims.ClaimsPrincipal User;
+
     protected async override Task OnInitializedAsync()
     {
-        available_projects = await
-            Http.GetFromJsonAsync<List<DonationsHeader>>("api/DonationsHeader");
+        var authState = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
+        User = authState.User;
+
+        try
+        {
+            available_projects = await
+                Http.GetFromJsonAsync<List<DonationsHeader>>("api/DonationsHeader");
+        }catch(Exception e){
+            SnackbarService.Add
+                (
+                    @<div>
+                        <p>Error occured</p>
+                    </div>, severity: Severity.Error,
+                    config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+                );
+        }
     }
     private void CalculateTotal(){
         model.Total = model.Qty * model.UnitCost;
@@ -95,19 +114,29 @@
 
     private async Task RemoveDonationItem(int id){
         try{
-            var response = await Http.DeleteAsync($"api/DonationsHeader/{id}");
+            var response = await Http.DeleteAsync($"api/DonationsDetail/{id}");
 
-            if(response.IsSuccessStatusCode)
+            if(response.IsSuccessStatusCode){
                 SnackbarService.Add
                     (
                         @<div>
-                            <p>Reomved successfully</p>
+                            <p>Removed successfully</p>
                         </div>, severity: Severity.Success,
                         config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
                     );
-
+                
                 added_expenses = await Http.GetFromJsonAsync<List<DonationsDetail>>($"api/DonationsDetail/GetDonationsDetailsByHeaderId/{headerId}");
                 StateHasChanged();
+            }else{
+                SnackbarService.Add
+                    (
+                        @<div>
+                            <p>Error occured</p>
+                        </div>, severity: Severity.Error,
+                        config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+                    );
+            }
+
         }catch(Exception e){
             SnackbarService.Add
                 (
@@ -121,6 +150,7 @@
     }
     private async void SubmitExpenseDetails()
     {
+        try{
             int.TryParse(headerId, out int _headerId);
 
             var donationsDetails = new RHF.Shared.DonationsDetailDTO();
@@ -160,6 +190,16 @@
                     config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
                 );
             }
+        }catch(Exception e){
+                SnackbarService.Add
+                (
+                    @<div>
+                        <p>Failed with error: e</p>
+                    </div>, severity: Severity.Error,
+                    config => { config.ShowCloseIcon = true; config.CloseAfterNavigation = true; }
+                );
+        }
+
     }
 
     async Task PopulateExpenses(string s){

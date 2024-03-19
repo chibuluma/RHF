@@ -33,7 +33,7 @@
                 </MudCardContent>
                 <MudCardActions>
                     <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary"
-                        Class="ml-auto">Add</MudButton>
+                        Class="ml-auto" Disabled="IsCFO">Add</MudButton>
                 </MudCardActions>
             </MudCard>
         </MudItem>
@@ -50,8 +50,8 @@
                                     <td>@year.Year</td>
                                     <td>
                                         @if(year.IsCurrent)
-                                            { <MudIconButton Icon="@Icons.Material.Filled.LockOpen" Color="Color.Success" OnClick="(args) => SetFinancialYear(year, false)"/>}
-                                        else{ <MudIconButton Icon="@Icons.Material.Filled.Lock" Color="Color.Primary" OnClick="(args) => SetFinancialYear(year, true)"/> }
+                                            { <MudIconButton Icon="@Icons.Material.Filled.LockOpen" Color="Color.Success" OnClick="(args) => SetFinancialYear(year, false)" Disabled="IsCFO"/>}
+                                        else{ <MudIconButton Icon="@Icons.Material.Filled.Lock" Color="Color.Primary" OnClick="(args) => SetFinancialYear(year, true)" Disabled="IsCFO"/> }
                                     </td>
                                 </tr>
 
@@ -75,6 +75,8 @@
     FinancialYearForm model = new FinancialYearForm();
     bool success;
     List<RHF.Shared.FinancialYear> available_financial_years = new();
+    private bool IsCFO => !User?.IsInRole("CFO") ?? true;
+
     private System.Security.Claims.ClaimsPrincipal User;
     private async void SetFinancialYear(RHF.Shared.FinancialYear year, bool result){
         if(year==null)

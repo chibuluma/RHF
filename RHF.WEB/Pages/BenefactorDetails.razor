@@ -137,46 +137,81 @@
                 (
     @<div>
         <p>@message.Content.ReadAsStringAsync().GetAwaiter().GetResult()</p>
-    </div>, severity: Severity.Error
+    </div>
+    , severity: Severity.Error
                 );
         }
 
     }
     async Task MakePayment(double amount)
     {
-        var money = new MobileMoney();
+        var requestData = new
+        {
+            payee = new
+            {
+                msisdn = "260972552446"
+            },
+            reference = "RHFPAYMENT",
+            pin = "1991",
+            transaction = new
+            {
+                amount = 1,
+                id = Guid.NewGuid().ToString() // Generate a random unique ID
+            }
+        };
+        // Serialize the data object to JSON
+        string json = Newtonsoft.Json.JsonConvert.SerializeObject(requestData);
 
-        money.MUID = "01HR1S3V1JQVBNE3PY7TDQTAWB";
-        money.Transaction_Details = "Testing";
-        money.Amount = 1.0;
-        money.PhoneNumber = 972552446;
+    var money = new MobileMoney
+    {
+        MUID = "01HR1S3V1JQVBNE3PY7TDQTAWB",
+        Transaction_Details = "Testing",
+        Amount = 1.0,
+        PhoneNumber = 972552446
+    };
 
-        var req = new HttpRequestMessage();
-        req.Content = JsonContent.Create(money);
-        req.Method = HttpMethod.Post;
-        req.RequestUri = new Uri($"https://api.moneyunify.com/airtel/request_payment", UriKind.Relative);
+    using (var httpClient = new HttpClient())
+    {
+        httpClient.DefaultRequestHeaders.Add("Content-Type", "application/json");
+        httpClient.DefaultRequestHeaders.Add("Accept", "*/*");
+        httpClient.DefaultRequestHeaders.Add("X-Country", "ZMB");
+        // Add custom header X-currency
+        httpClient.DefaultRequestHeaders.Add("X-Currency", "ZMK");
+        // Add authorization header
+        httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", "0d1b3a0b-ec8f-4d83-8d77-056b9f6b47be");
 
-        var response = await Http.SendAsync(req);
+
+
+        var req = new HttpRequestMessage
+        {
+            Content = JsonContent.Create(requestData),
+            Method = HttpMethod.Post,
+            RequestUri = new Uri($"https://openapiuat.airtel.africa/standard/v1/disbursements/")
+        };
+
+        var response = await httpClient.SendAsync(req);
 
         if (response.IsSuccessStatusCode)
         {
-            SnackbarService.Add
-            (
+            SnackbarService.Add(
                 @<div>
                     <p>Payment sent successfully</p>
-                </div>, severity: Severity.Success
+                </div>, 
+                severity: Severity.Success
             );
         }
         else
         {
-            SnackbarService.Add
-            (
+            SnackbarService.Add(
                 @<div>
-                    <p>Error making payment email</p>
-                </div>, severity: Severity.Error
+                    <p>Error making payment</p>
+                </div>, 
+                severity: Severity.Error
             );
         }
     }
+}
+
 
     private void MakeMobileMoneyPaymentDialog(){
         var parameters = new DialogParameters<MobileMoneyDialog>();
@@ -264,4 +299,6 @@
 
         }
     }
+
+    
 }
